@@ -286,6 +286,7 @@ import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart' as core;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../app.dart';
+import '../app_theme.dart';
 import 'home_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -469,16 +470,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Theme.of(context).cardColor,
 
       appBar: AppBar(
         title: const Text(
           'Sign Up',
           style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 28, color: Colors.white),
+              fontWeight: FontWeight.normal, fontSize: 20, color: Colors.white),
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple[200],
+        backgroundColor: MyTheme.AppBarTheme,
         elevation: 0,
       ),
       // backgroundColor: Theme.of(context).cardColor,
@@ -587,7 +588,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.deepPurple, // background
+                      primary: MyTheme.kPrimaryColor, // background
                       onPrimary: Colors.white, // foreground
                       fixedSize: Size(120, 20),
                     ),
@@ -608,7 +609,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Text(
                       'Already have an account?',
                       style: TextStyle(
-                          color: Colors.black,
+                        //color: Colors.black,
                           fontWeight: FontWeight.bold),
                       // style: Theme.of(context).textTheme.subtitle2),
                     ),
@@ -688,6 +689,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 icon: const Icon(Icons.camera),
                 onPressed: () {
                   takePhoto(ImageSource.camera);
+                  Navigator.of(context).pop();
                 },
                 label: const Text("Camera"),
               ),
@@ -695,6 +697,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 icon: const Icon(Icons.image),
                 onPressed: () {
                   takePhoto(ImageSource.gallery);
+                  Navigator.of(context).pop();
                 },
                 label: const Text("Gallery"),
               )

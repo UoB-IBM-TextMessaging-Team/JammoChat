@@ -158,7 +158,7 @@ class _HomePageState extends State<HomePage> {
         ),
 
         // 背景色
-        backgroundColor: Color.fromARGB(255, 131, 155, 210), // 决定主页背景色 《======
+        backgroundColor: MyTheme.AppBarTheme, // 决定主页背景色 《======
 
         // body pages
         body: Ink(

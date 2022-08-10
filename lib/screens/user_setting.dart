@@ -1,7 +1,7 @@
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ar_ai_messaging_client_frontend/app_theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
@@ -119,12 +119,12 @@ class _UserSettingState extends State<UserSetting> {
         title: const Text(
           "User Setting",
           style: TextStyle(
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.normal,
             fontSize: 20,
             color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.deepPurple[200],
+        backgroundColor: MyTheme.AppBarTheme,
         centerTitle: true,
       ),
       body: Padding(
@@ -149,7 +149,7 @@ class _UserSettingState extends State<UserSetting> {
                     setState(() {});
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.deepPurple,
+                      primary: MyTheme.kPrimaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -170,7 +170,7 @@ class _UserSettingState extends State<UserSetting> {
                     uploadFile();
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.deepPurple,
+                      primary: MyTheme.kPrimaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -253,6 +253,7 @@ class _UserSettingState extends State<UserSetting> {
                 icon: const Icon(Icons.camera),
                 onPressed: () {
                   takePhoto(ImageSource.camera);
+                  Navigator.of(context).pop();
                 },
                 label: const Text("Camera"),
               ),
@@ -260,6 +261,7 @@ class _UserSettingState extends State<UserSetting> {
                 icon: const Icon(Icons.image),
                 onPressed: () {
                   takePhoto(ImageSource.gallery);
+                  Navigator.of(context).pop();
                 },
                 label: const Text("Gallery"),
               )

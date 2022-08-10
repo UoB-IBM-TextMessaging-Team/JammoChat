@@ -11,6 +11,7 @@ class MyTheme {
   static Color kAccentColor = const Color(0xffFCAAAB);
   static Color kAccentColorVariant = Color(0xffF7A3A2);
   static Color kUnreadChatBG = Color(0xffEE1D1D);
+  static Color AppBarTheme = Color.fromARGB(255, 131, 155, 210);
 
   static final TextStyle kAppTitle = GoogleFonts.grandHotel(
       fontSize: 36, color: Colors.white); // change color here <======
