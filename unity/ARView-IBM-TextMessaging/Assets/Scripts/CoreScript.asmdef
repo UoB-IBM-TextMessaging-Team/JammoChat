@@ -1,0 +1,21 @@
+{
+    "name": "CoreScript",
+    "rootNamespace": "",
+    "references": [
+        "Unity.TextMeshPro",
+        "Unity.Animation.Rigging",
+        "Unity.XR.ARFoundation",
+        "Unity.XR.ARSubsystems",
+        "IBM.Cloud.SDK",
+        ""
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
