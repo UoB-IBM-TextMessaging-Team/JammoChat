@@ -6,7 +6,7 @@ import 'package:logger/logger.dart' as log;
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 import 'package:algolia/algolia.dart';
 
-const streamKey = 'cehah339gsxg';
+const streamKey = 'c8m5epxejk8e';
 
 var logger = log.Logger();
 
