@@ -6,12 +6,12 @@ import 'package:ar_ai_messaging_client_frontend/theme.dart';
 
 class MyTheme {
   MyTheme._();
-  static Color kPrimaryColor = const Color(0xff7C7B9B);
-  static Color kPrimaryColorVariant = Color(0xff686795);
-  static Color kAccentColor = const Color(0xffFCAAAB);
-  static Color kAccentColorVariant = Color(0xffF7A3A2);
-  static Color kUnreadChatBG = Color(0xffEE1D1D);
-  static Color AppBarTheme = Color.fromARGB(255, 131, 155, 210);
+  static Color kPrimaryColor = Color.fromARGB(255, 109, 101, 182);
+  static Color kPrimaryColorVariant = Color.fromRGBO(152,124,182,1);
+  //static Color kAccentColor = const Color(0xffFCAAAB);
+  //static Color kAccentColorVariant = Color(0xffF7A3A2);
+  //static Color kUnreadChatBG = Color(0xffEE1D1D);
+  static Color AppBarTheme = Color.fromARGB(255,95,87,164);
 
   static final TextStyle kAppTitle = GoogleFonts.grandHotel(
       fontSize: 36, color: Colors.white); // change color here <======
@@ -30,7 +30,7 @@ class MyTheme {
   );
 
   static final TextStyle textMessage =
-      TextStyle(fontSize: 14, letterSpacing: 1.2, fontWeight: FontWeight.w500);
+  TextStyle(fontSize: 14, letterSpacing: 1.2, fontWeight: FontWeight.w500);
 
   static final TextStyle textPreview = TextStyle(
     fontSize: 13,

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import '../app_theme.dart';
 import '../screens/screens.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
@@ -8,8 +9,8 @@ import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 class SplashScreen extends StatefulWidget {
   static Route get route => MaterialPageRoute(
-        builder: (context) => const SplashScreen(),
-      );
+    builder: (context) => const SplashScreen(),
+  );
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
@@ -34,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (user != null) {
         // get Stream user token
         final callable =
-            FirebaseFunctions.instance.httpsCallable('getStreamUserToken');
+        FirebaseFunctions.instance.httpsCallable('getStreamUserToken');
 
         final results = await Future.wait([
           callable(),
@@ -68,9 +69,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      backgroundColor: MyTheme.AppBarTheme,
       body: Center(
-        child: CircularProgressIndicator(),
+        child: Image.asset(
+          'assets/logos/app_logo.jpg',
+          width: 180,
+          height: 180,
+        ),
       ),
     );
   }

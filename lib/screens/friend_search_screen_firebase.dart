@@ -13,7 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 //import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 import '../app_theme.dart';
-import '../models/userAlgoliaProfile.dart';
+import '../models/user_algolia_profile.dart';
 import '../pages/home_list.dart';
 import '../theme.dart';
 import '../widgets/avatar.dart';
