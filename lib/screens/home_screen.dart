@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                   style: MyTheme.kAppTitle,
                 ),
                 Text(
-                  ' Chat',
+                  'Chat',
                   style: MyTheme.kAppTitle,
                 ),
               ],
@@ -149,6 +149,7 @@ class _HomePageState extends State<HomePage> {
                         return CircleAvatar(
                           radius: 30,
                           backgroundImage: choosePic(),
+                          backgroundColor: Theme.of(context).backgroundColor,
                         );
                       }),
                 ),

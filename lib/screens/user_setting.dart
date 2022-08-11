@@ -201,7 +201,11 @@ class _UserSettingState extends State<UserSetting> {
           FutureBuilder(
               future: findProfilePic(),
               builder: (context, snapshot) {
-                return CircleAvatar(radius: 80.0, backgroundImage: choosePic());
+                return CircleAvatar(
+                    radius: 80.0,
+                    backgroundImage: choosePic(),
+                    backgroundColor: Theme.of(context).backgroundColor,
+                );
               }),
           Positioned(
             bottom: 20.0,

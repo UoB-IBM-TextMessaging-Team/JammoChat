@@ -51,12 +51,12 @@ class Avatar extends StatelessWidget {
         backgroundImage: CachedNetworkImageProvider(
             url!
         ),
-        backgroundColor: Theme.of(context).cardColor,
+        backgroundColor: Colors.transparent,
       );
     } else {
       return CircleAvatar(
         radius: radius,
-        backgroundColor: Theme.of(context).cardColor,
+        backgroundColor: Colors.transparent,
         child: Center(
           child: Text(
             '?',

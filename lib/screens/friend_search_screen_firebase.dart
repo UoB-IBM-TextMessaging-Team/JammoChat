@@ -223,7 +223,11 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
                                 url: resultList[index].profilePicURL),
                             title: Text(resultList[index].userName),
                             subtitle:
-                            Text(resultList[index].userEmail),
+                            Text(resultList[index].userEmail,
+                              style: TextStyle(
+                                  color: Theme.of(context).hintColor
+                              ),
+                            ),
                             trailing: Builder(
                               builder: (BuildContext context) {
                                 if (resultList[index].userEmail ==

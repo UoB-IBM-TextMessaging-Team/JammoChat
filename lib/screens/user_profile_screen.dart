@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 import 'package:ar_ai_messaging_client_frontend/screens/user_setting.dart';
 import '../app.dart';
@@ -13,8 +15,8 @@ import 'screens.dart';
 
 class UserProfile extends StatefulWidget {
   static Route get route => ZeroDurationRoute(
-        builder: (context) => const UserProfile(),
-      );
+    builder: (context) => const UserProfile(),
+  );
 
   const UserProfile({Key? key}) : super(key: key);
 
@@ -29,9 +31,42 @@ class _UserProfileState extends State<UserProfile> {
     if (picture == "") {
       return const AssetImage('assets/images/user1.png');
     } else {
-      return NetworkImage(picture);
+      return CachedNetworkImageProvider(picture);
     }
   }
+
+  ///////UNITY
+  late UnityWidgetController unityWidgetController;
+
+
+  void onUnityMessage(message) {
+    print('Received message from unity: ${message.toString()}');
+  }
+
+  // Callback that connects the created controller to the unity controller
+  void onUnityCreated(controller) {
+    unityWidgetController = controller;
+    switchToShow();
+  }
+
+  void switchToShow(){
+    unityWidgetController.postMessage(
+      'GameManager',
+      'LoadGameScene',
+      '1',
+    );
+  }
+
+  @override
+  void dispose() {
+    ///////UNITY
+    unityWidgetController.dispose();
+    ///////UNITY
+
+    super.dispose();
+  }
+
+  ///////UNITY
 
   Future findProfilePic() async {
     try {
@@ -51,21 +86,17 @@ class _UserProfileState extends State<UserProfile> {
     final user = context.currentUser;
     final borderRadius = BorderRadius.circular(20);
     return Stack(
-        /*
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: ExactAssetImage('assets/images/image1.jpg'),
-          opacity: 0.9,
-          fit: BoxFit.cover,
-        ),
-      ),
-       */
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 0),
             height: 450,
-            color: Colors.cyan,
-          ),
+            color: Colors.white10,
+            child: UnityWidget(
+                onUnityCreated: onUnityCreated,
+                onUnityMessage: onUnityMessage,
+                //webUrl: 'http://localhost:6080',
+                useAndroidViewSurface: false,
+                fullscreen: false,
+          )),
           Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
@@ -94,8 +125,8 @@ class _UserProfileState extends State<UserProfile> {
               ],
             ),
             body: Padding(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.35),
+              padding:
+              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.35),
               child: Container(
                 padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
                 height: double.maxFinite,
@@ -124,13 +155,15 @@ class _UserProfileState extends State<UserProfile> {
                                     child: SizedBox.fromSize(
                                       size: Size.fromRadius(32),
                                       child:
-                                          //
-                                          FutureBuilder(
+                                      //
+                                      FutureBuilder(
                                         future: findProfilePic(),
                                         builder: (context, snapshot) {
                                           return CircleAvatar(
                                               radius: 80.0,
-                                              backgroundImage: choosePic());
+                                              backgroundImage: choosePic(),
+                                              backgroundColor: Theme.of(context).backgroundColor,
+                                          );
                                         },
                                       ),
                                     ),
@@ -140,8 +173,7 @@ class _UserProfileState extends State<UserProfile> {
                               const SizedBox(width: 8),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
                                   Text(
                                     user?.name ?? 'no name',
@@ -223,7 +255,8 @@ class _UserProfileState extends State<UserProfile> {
               ),
             ),
           ),
-        ]);
+        ]
+    );
   }
 }
 
@@ -262,14 +295,14 @@ class __SignOutButtonState extends State<_SignOutButton> {
     return _loading
         ? const CircularProgressIndicator()
         : MaterialButton(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            onPressed: _signOut,
-            color: Theme.of(context).backgroundColor,
-            child: const Text(
-              'Sign out',
-            ),
-          );
+      shape:
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      onPressed: _signOut,
+      color: Theme.of(context).backgroundColor,
+      child: const Text(
+        'Sign out',
+      ),
+    );
   }
 }
 
@@ -311,7 +344,7 @@ class __SignOutButtonState extends State<_SignOutButton> {
 //   //   }
 //   // }
 
-//   @overrides
+//   @override
 //   Widget build(BuildContext context) {
 //     final borderRadius = BorderRadius.circular(20);
 //     return Container(
@@ -355,7 +388,7 @@ class __SignOutButtonState extends State<_SignOutButton> {
 //             padding: EdgeInsets.only(top: 32, left: 16, right: 16),
 //             height: double.maxFinite,
 //             decoration: BoxDecoration(
-//               color: c, // 首页列表背景色 <=========
+//               color: Theme.of(context).cardColor, // 首页列表背景色 <=========
 //               borderRadius: const BorderRadius.only(
 //                 topLeft: Radius.circular(30),
 //                 topRight: Radius.circular(30),
