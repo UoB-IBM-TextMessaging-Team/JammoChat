@@ -435,7 +435,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
         // Navigate to home screen
         //await Navigator.of(context).pushReplacement(HomePage.route);
-        await Navigator.of(context).pushAndRemoveUntil(HomePage.route, (Route<dynamic> route) => false);
+        await Navigator.of(context).pushAndRemoveUntil(
+            HomePage.route, (Route<dynamic> route) => false);
       } on firebase.FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(e.message ?? 'Auth error')),
@@ -505,7 +506,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
       // backgroundColor: Theme.of(context).cardColor,
       body: (_loading)
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text('Your Jammo bot is birthing...'),
+                  SizedBox(height: 20),
+                  CircularProgressIndicator()
+                ],
+              ),
+            )
           : SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),

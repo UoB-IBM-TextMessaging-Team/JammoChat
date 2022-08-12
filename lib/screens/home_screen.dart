@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
 
   choosePic() {
     if (picture == "") {
-      return const AssetImage('assets/images/user1.png');
+      return const AssetImage('assets/logos/app_logo.jpg');
     } else {
       return NetworkImage(picture);
     }
