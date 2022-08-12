@@ -12,8 +12,8 @@ import '../theme.dart';
 
 class SignInScreen extends StatefulWidget {
   static Route get route => MaterialPageRoute(
-        builder: (context) => const SignInScreen(),
-      );
+    builder: (context) => const SignInScreen(),
+  );
   const SignInScreen({Key? key}) : super(key: key);
 
   @override
@@ -40,7 +40,7 @@ class _SignInScreenState extends State<SignInScreen> {
       try {
         // Authenticate with Firebase
         final creds =
-            await firebase.FirebaseAuth.instance.signInWithEmailAndPassword(
+        await firebase.FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text,
           password: _passwordController.text,
         );
@@ -125,128 +125,131 @@ class _SignInScreenState extends State<SignInScreen> {
       //   centerTitle: true,
       //   backgroundColor: Colors.deepPurple[200],
       // ),
-      backgroundColor: Colors.grey[300],
+      backgroundColor: MyTheme.AppBarTheme,
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 70),
-                      Icon(
-                        Icons.phone_android,
-                        size: 100,
-                        color: Colors.deepPurple[500],
-                      ),
-                      SizedBox(height: 40),
-                      Text(
-                        'Hello Again!',
-                        style: GoogleFonts.bebasNeue(
-                          fontSize: 52,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: TextFormField(
-                              style: TextStyle(color: Colors.black),
-                              controller: _emailController,
-                              validator: _emailInputValidator,
-                              decoration: const InputDecoration(
-                                  hintStyle: TextStyle(
-                                      fontSize: 20.0, color: Colors.grey),
-                                  hintText: 'Email',
-                                  border: InputBorder.none),
-                              keyboardType: TextInputType.emailAddress,
-                              autofillHints: const [AutofillHints.email],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: TextFormField(
-                              style: TextStyle(color: Colors.black),
-                              controller: _passwordController,
-                              validator: _passwordInputValidator,
-                              decoration: const InputDecoration(
-                                hintText: 'Password',
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(
-                                    fontSize: 20.0, color: Colors.grey),
-                              ),
-                              obscureText: true,
-                              enableSuggestions: false,
-                              autocorrect: false,
-                              keyboardType: TextInputType.visiblePassword,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.deepPurple, // background
-                            onPrimary: Colors.white, // foreground
-                            fixedSize: Size(120, 20),
-                          ),
-                          onPressed: _signIn,
-                          child: const Text(
-                            'Sign in',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      const Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Already have an account?',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                            // style: Theme.of(context).textTheme.subtitle2,
-                          ),
-                          const SizedBox(width: 8),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(SignUpScreen.route);
-                            },
-                            child: const Text(
-                              'Create account',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                SizedBox(height: 70),
+                Image.asset(
+                  'assets/logos/app_logo.jpg',
+                  width: 120,
+                  height: 120,
+                ),
+                SizedBox(height: 30),
+                Text(
+                  'Welcome to JammoChat',
+                  style: GoogleFonts.grandHotel(
+                    fontSize: 42,
+                    color: Colors.white,
                   ),
                 ),
-              ),
+                SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.black),
+                        controller: _emailController,
+                        validator: _emailInputValidator,
+                        decoration: const InputDecoration(
+                            hintStyle: TextStyle(
+                                fontSize: 20.0, color: Colors.grey),
+                            hintText: 'Email',
+                            border: InputBorder.none),
+                        keyboardType: TextInputType.emailAddress,
+                        autofillHints: const [AutofillHints.email],
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.black),
+                        controller: _passwordController,
+                        validator: _passwordInputValidator,
+                        decoration: const InputDecoration(
+                          hintText: 'Password',
+                          border: InputBorder.none,
+                          hintStyle: TextStyle(
+                              fontSize: 20.0, color: Colors.grey),
+                        ),
+                        obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        keyboardType: TextInputType.visiblePassword,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: MyTheme.kPrimaryColorVariant, // background
+                      onPrimary: Colors.white, // foreground
+                      fixedSize: Size(80, 80),
+                      shape: CircleBorder(),
+                      //padding: EdgeInsets.all(24),
+                    ),
+                    onPressed: _signIn,
+                    child: const Text(
+                      'Sign in',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                const Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Do not have an account?',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                      // style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                    const SizedBox(width: 8),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(SignUpScreen.route);
+                      },
+                      child: const Text(
+                        'Create account',
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
+          ),
+        ),
+      ),
     );
   }
 }
