@@ -12,3 +12,13 @@ Brief look             |  AR/AI chat interface
 
 AI and Augmented Reality Text Messaging Application - create a new text messaging application that is designed to run on mobile devices (Android) that will provide a more visual experience to text messaging, in the form of an augmented reality avatar (that represents the sender) and speaks out the message using Watson
 
+## Team Members
+Paul Chou
+Zhichang Lin
+Xiaolan Li
+Xiuqing Wang
+Wangchen Zhao
+Junchan Zhou
+
+
+
