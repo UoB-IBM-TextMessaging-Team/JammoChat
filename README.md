@@ -1,6 +1,7 @@
 #  <img src="https://user-images.githubusercontent.com/13105267/184379189-378c004f-26e2-45a7-b5a8-0c3fe310e49c.jpg" width="60" height="60"> JammoChat - AR & AI Chatting Experience 
 
-A text messaging app with vivid AR & AI experience powered by IBM Watson.
+A text messaging app with vivid AR & AI experience powered by *IBM Watson*.  
+Special thanks to [Mix and Jam](https://www.youtube.com/c/mixandjam) with wonderful open-source 3D asset!
 
 Brief look             |  AR/AI chat interface
 :-------------------------:|:-------------------------:
