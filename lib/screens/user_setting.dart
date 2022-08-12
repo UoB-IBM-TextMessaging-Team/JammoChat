@@ -295,7 +295,7 @@ class _UserSettingState extends State<UserSetting> {
   choosePic() {
     //沒upload，之前也沒換過照片
     if (picture == "" && _photo == null) {
-      return const AssetImage('assets/images/user1.png');
+      return const AssetImage('assets/logos/app_logo_bw.jpg');
     } else if (_photo == null) {
       // 沒upload照片 從firebase store找之前的
       return NetworkImage(picture);

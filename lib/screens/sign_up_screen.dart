@@ -323,7 +323,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
   //gallery image picker
 
   Future<void> _signUp() async {
-    if (_photo == null) return;
+    if (_photo == null) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Oops!'),
+          content: const Text('Please select your profile photo.'),
+          actions: [
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        ),
+      );
+      return;
+    }
     //storage
 
     /*
@@ -417,7 +434,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         );
 
         // Navigate to home screen
-        await Navigator.of(context).pushReplacement(HomePage.route);
+        //await Navigator.of(context).pushReplacement(HomePage.route);
+        await Navigator.of(context).pushAndRemoveUntil(HomePage.route, (Route<dynamic> route) => false);
       } on firebase.FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(e.message ?? 'Auth error')),
@@ -512,7 +530,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.grey[200],
+                              color: Theme.of(context).bottomAppBarColor,
                               border: Border.all(color: Colors.white),
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -539,7 +557,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.grey[200],
+                              color: Theme.of(context).bottomAppBarColor,
                               border: Border.all(color: Colors.white),
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -563,7 +581,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.grey[200],
+                            color: Theme.of(context).bottomAppBarColor,
                             border: Border.all(color: Colors.white),
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -736,7 +754,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     print(_photo);
     //沒upload，之前也沒換過照片
     if (_photo == null) {
-      return const AssetImage('assets/images/user1.png');
+      return const AssetImage('assets/logos/app_logo.jpg');
     } else {
       //新upload到照片
       return FileImage(File(_photo!.path));

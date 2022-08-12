@@ -66,7 +66,8 @@ class _SignInScreenState extends State<SignInScreen> {
         );
 
         // Navigate to home screen
-        await Navigator.of(context).pushReplacement(HomePage.route);
+        await Navigator.of(context).pushAndRemoveUntil(HomePage.route, (Route<dynamic> route) => false);
+        //await Navigator.of(context).pushReplacement(HomePage.route);
       } on firebase.FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(e.message ?? 'Auth error')),
