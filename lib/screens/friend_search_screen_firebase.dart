@@ -254,6 +254,10 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
                                   );
                                 } else {
                                   return ElevatedButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                        MaterialStateProperty.all<
+                                            Color>(MyTheme.kPrimaryColor)),
                                     onPressed: () {
                                       addFriendUIDToFirestore(
                                           resultList[index]);

@@ -7,7 +7,7 @@ import 'package:ar_ai_messaging_client_frontend/theme.dart';
 class MyTheme {
   MyTheme._();
   static Color kPrimaryColor = Color.fromARGB(255, 109, 101, 182);
-  static Color kPrimaryColorVariant = Color.fromRGBO(152,124,182,1);
+  static Color kPrimaryColorVariant = Color.fromRGBO(133, 92, 197, 1.0);
   //static Color kAccentColor = const Color(0xffFCAAAB);
   //static Color kAccentColorVariant = Color(0xffF7A3A2);
   //static Color kUnreadChatBG = Color(0xffEE1D1D);
