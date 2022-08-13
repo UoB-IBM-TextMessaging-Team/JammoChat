@@ -9,9 +9,11 @@ import 'package:ar_ai_messaging_client_frontend/app_theme.dart';
 import 'package:ar_ai_messaging_client_frontend/theme.dart';
 import 'package:ar_ai_messaging_client_frontend/widgets/widgets.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+import '../widgets/animated_dialog.dart';
 
 class ChateScreen extends StatefulWidget {
-
   /*
   static Route routeWithChannel(Channel channel) => MaterialPageRoute(
         builder: (context) => StreamChannel(
@@ -34,11 +36,11 @@ class ChateScreen extends StatefulWidget {
 */
 
   static Route routeWithChannel(Channel channel) => ZeroDurationRoute(
-    builder: (context) => StreamChannel(
-      channel: channel,
-      child: const ChateScreen(),
-    ),
-  );
+        builder: (context) => StreamChannel(
+          channel: channel,
+          child: const ChateScreen(),
+        ),
+      );
 
   const ChateScreen({
     Key? key,
@@ -51,31 +53,39 @@ class ChateScreen extends StatefulWidget {
 class _ChateScreenState extends State<ChateScreen> {
   late StreamSubscription<int> unreadCountSubscription;
   late var newMessageSubscription;
+  final TextEditingController controller = TextEditingController();
+  late OverlayEntry _popupDialog;
 
   Future<void> _sendMessage(String text) async {
     setState(() {
       if (text.isNotEmpty) {
         print(text);
-        StreamChannel.of(context)
-            .channel
-            .sendMessage(Message(text: text));
+        StreamChannel.of(context).channel.sendMessage(Message(text: text));
         FocusScope.of(context).unfocus();
       }
     });
+  }
 
+  _startRec() {
+    print('_startRec()');
+  }
+
+  _stopRec() {
+    print('_stopRec()');
   }
 
   ///////UNITY
   late UnityWidgetController unityWidgetController;
 
-  void sendUnityPlay(String? TextToUnity){
-    if(TextToUnity != null && TextToUnity.isNotEmpty) {
-      unityWidgetController.postMessage('main_control', 'StartPlayMessage', TextToUnity);
+  void sendUnityPlay(String? TextToUnity) {
+    if (TextToUnity != null && TextToUnity.isNotEmpty) {
+      unityWidgetController.postMessage(
+          'main_control', 'StartPlayMessage', TextToUnity);
     }
   }
 
-  void placeObject(){
-    unityWidgetController.postMessage('main_control', 'on_place_btn','');
+  void placeObject() {
+    unityWidgetController.postMessage('main_control', 'on_place_btn', '');
   }
 
   void onUnityMessage(message) {
@@ -88,7 +98,7 @@ class _ChateScreenState extends State<ChateScreen> {
     switchToMainAR();
   }
 
-  void switchToMainAR(){
+  void switchToMainAR() {
     unityWidgetController.postMessage(
       'GameManager',
       'LoadGameScene',
@@ -109,8 +119,11 @@ class _ChateScreenState extends State<ChateScreen> {
         .listen(_unreadCountHandler);
 
     ///////UNITY
-    newMessageSubscription = StreamChannel.of(context).channel.on("message.new").listen((Event event) {
-      if(event.message?.user?.id != context.currentUser?.id){
+    newMessageSubscription = StreamChannel.of(context)
+        .channel
+        .on("message.new")
+        .listen((Event event) {
+      if (event.message?.user?.id != context.currentUser?.id) {
         // TODO
         // Trigger the AR scene
         sendUnityPlay(event.message?.text);
@@ -118,7 +131,6 @@ class _ChateScreenState extends State<ChateScreen> {
       }
     });
     ///////UNITY
-
   }
 
   Future<void> _unreadCountHandler(int count) async {
@@ -143,84 +155,183 @@ class _ChateScreenState extends State<ChateScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: Stack(
-        children:  <Widget>[
+      child: Stack(children: <Widget>[
         UnityWidget(
-        onUnityCreated: onUnityCreated,
-        onUnityMessage: onUnityMessage,
-        //webUrl: 'http://localhost:6080',
-        useAndroidViewSurface: false,
-        fullscreen: false,
-      ),Container(
-            child: Scaffold(
-              //extendBodyBehindAppBar: true,
-              backgroundColor: Colors
-                  .transparent, // Make AppBar transparent and show background image which is set to whole screen <====
-              // app bar
-              appBar: AppBar(
-                backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.3),
-                iconTheme: Theme.of(context).iconTheme,
-                centerTitle: false,
-                title: const AppBarTitle(),
-                leading: Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: IconBackground(
-                      icon: CupertinoIcons.back,
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
+          onUnityCreated: onUnityCreated,
+          onUnityMessage: onUnityMessage,
+          //webUrl: 'http://localhost:6080',
+          useAndroidViewSurface: false,
+          fullscreen: false,
+        ),
+        Container(
+          child: Scaffold(
+            //extendBodyBehindAppBar: true,
+            backgroundColor: Colors
+                .transparent, // Make AppBar transparent and show background image which is set to whole screen <====
+            // app bar
+            appBar: AppBar(
+              backgroundColor:
+                  Theme.of(context).backgroundColor.withOpacity(0.3),
+              iconTheme: Theme.of(context).iconTheme,
+              centerTitle: false,
+              title: const AppBarTitle(),
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconBackground(
+                    icon: CupertinoIcons.back,
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
                   ),
                 ),
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Center(
-                      child: IconBackground(
-                          icon: Icons.more_vert,
-                          onTap: () {
-                            print('Check More.');
-                          }),
-                    ),
-                  ),
-                ],
               ),
-
-              // body
-              body: Padding(
-                padding: const EdgeInsets.only(top: 200),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .cardColor
-                        .withOpacity(0.2), // 首页列表背景色 <=========
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50),
-                    ),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Center(
+                    child: IconBackground(
+                        icon: Icons.more_vert,
+                        onTap: () {
+                          print('Check More.');
+                        }),
                   ),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50),
-                    ),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: MessageListCore(
-                            loadingBuilder: (context) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            },
-                            emptyBuilder: (context) => const SizedBox.shrink(),
-                            errorBuilder: (context, error) =>
-                                DisplayErrorMessage(error: error),
-                            messageListBuilder: (context, messages) =>
-                                _MessageList(messages: messages),
+                ),
+              ],
+            ),
+
+            // body
+            body: Padding(
+              padding: const EdgeInsets.only(top: 200),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context)
+                      .cardColor
+                      .withOpacity(0.2), // 首页列表背景色 <=========
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50),
+                  ),
+                ),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50),
+                  ),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: MessageListCore(
+                          loadingBuilder: (context) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          },
+                          emptyBuilder: (context) => const SizedBox.shrink(),
+                          errorBuilder: (context, error) =>
+                              DisplayErrorMessage(error: error),
+                          messageListBuilder: (context, messages) =>
+                              _MessageList(messages: messages),
+                        ),
+                      ),
+                      SafeArea(
+                        bottom: true,
+                        top: false,
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                              top: 10, bottom: 20, left: 10, right: 10),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).cardColor,
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(18),
+                              topRight: Radius.circular(18),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                //使用expanded将输入框的长度延伸到全屏幕的宽度
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  height: 40,
+                                  margin: const EdgeInsets.only(right: 8),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).backgroundColor,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      GestureDetector(
+                                        onLongPressStart: (details) {
+                                          _popupDialog = _createPopupDialog();
+                                          Overlay.of(context)
+                                              ?.insert(_popupDialog);
+                                          _startRec();
+                                        }, // start recording when long pressed
+                                        onLongPressUp: () {
+                                          _stopRec();
+                                          _popupDialog?.remove();
+                                        },
+                                        child: Icon(
+                                          Icons.settings_voice_rounded,
+                                          color: Colors.grey[500],
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(bottom: 5),
+                                          child: TextField(
+                                            controller: controller,
+                                            onChanged: (val) {
+                                              StreamChannel.of(context)
+                                                  .channel
+                                                  .keyStroke();
+                                            },
+                                            decoration: const InputDecoration(
+                                              border: InputBorder.none,
+                                              //hintText: 'Type your message here ...',
+                                              //hintStyle: TextStyle(color: Colors.grey[500], fontWeight: FontWeight.bold),
+                                            ),
+                                            onSubmitted: (String s) =>
+                                                setState(() {
+                                              _sendMessage(s);
+                                            }),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 5),
+                                      Icon(
+                                        Icons.attach_file,
+                                        color: Colors.grey[500],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    placeObject();
+                                  });
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor: Theme.of(context).cardColor,
+                                  child: const Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 2, bottom: 2),
+                                    child: Icon(
+                                      CupertinoIcons.viewfinder,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+                      ),
+                      /*
                         _ActionBar(
                           onEnterPress: (String s){
                             setState(() {
@@ -233,15 +344,16 @@ class _ChateScreenState extends State<ChateScreen> {
                             });
                           },
                         ),
-                      ],
-                    ),
+
+                         */
+                    ],
                   ),
                 ),
               ),
             ),
-          )
-        ]
-      ),
+          ),
+        )
+      ]),
     );
   }
 }
@@ -472,6 +584,58 @@ class _MessageTile extends StatelessWidget {
     );
   }
 }
+
+OverlayEntry _createPopupDialog() {
+  return OverlayEntry(
+    builder: (context) => AnimatedDialog(
+      child: _createPopupContent(),
+    ),
+  );
+}
+
+Widget _createPopupContent() => Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                SpinKitRipple(
+                  color: Color.fromARGB(255, 147, 88, 241),
+                  size: 350.0,
+                ),
+                Image.asset('assets/images/watson_logo_v2_3.webp'),
+              ],
+            ),
+            /*
+            Image.asset('assets/images/watson_logo_v2_3.webp'),
+            SizedBox(
+              height: 10,
+            ),
+            SpinKitRipple(
+              color: Color.fromARGB(255, 147, 88, 241),
+              size: 90.0,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+
+             */
+            Padding(
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Text(
+                'Speech converting...',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+
 /*
 class _ActionBar extends StatefulWidget {
   _ActionBar({Key? key}) : super(key: key);
@@ -481,6 +645,7 @@ class _ActionBar extends StatefulWidget {
   State<_ActionBar> createState() => _ActionBarState();
 }
 */
+/*
 class _ActionBar extends StatelessWidget {
 
   _ActionBar({this.onEnterPress,required this.onIdentityPress});
@@ -575,3 +740,4 @@ class _ActionBar extends StatelessWidget {
     );
   }
 }
+*/
