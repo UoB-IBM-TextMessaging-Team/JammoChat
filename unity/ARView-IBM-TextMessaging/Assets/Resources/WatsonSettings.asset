@@ -18,5 +18,5 @@ MonoBehaviour:
   assistantId: 
   tts_apikey: B0ZcMN4hti8xEmgMHHAUzKtgqmleBhuPGoUzIH8i9YIU
   tts_serviceUrl: https://api.eu-gb.text-to-speech.watson.cloud.ibm.com/instances/2d4d1351-b830-4222-b69f-176e2cdea736
-  stt_apikey: 
-  stt_serviceUrl: 
+  NLU_apikey: U_Wd0zXTjUsWXvtZNbvr66ylrIBdUxlDF8qjQKkLncdR
+  NLU_serviceUrl: https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/b8af7dc3-c234-4307-bd91-596656623719

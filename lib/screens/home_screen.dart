@@ -94,8 +94,8 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Image.asset(
                     'assets/logos/app_logo_small_cut.jpg',
-                  height: 40,
-                  width: 40,
+                  height: 38,
+                  width: 38,
                 ),
                 Text(
                   'ammo',
@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                   'Chat',
                   style: MyTheme.kAppTitle,
                 ),
-                SizedBox(width: 20)
+                SizedBox(width: 15)
               ],
             ),
           ),

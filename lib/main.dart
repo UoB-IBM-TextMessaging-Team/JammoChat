@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 import 'package:ar_ai_messaging_client_frontend/app.dart';
 import 'package:ar_ai_messaging_client_frontend/screens/screens.dart';
@@ -13,11 +14,14 @@ Future main() async {
 
   final client = StreamChatClient(streamKey);
 
-  runApp(
-    MyApp(
-      client: client,
-    ),
-  );
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(
+      MyApp(
+        client: client,
+      ),
+    );
+  });
 }
 
 class MyApp extends StatelessWidget {
