@@ -18,6 +18,7 @@ import '../pages/home_list.dart';
 import '../theme.dart';
 import '../widgets/avatar.dart';
 import '../widgets/display_error_message.dart';
+import '../widgets/icon_buttons.dart';
 import '../widgets/search_bars.dart';
 
 class FriendSearchScreenFb extends StatefulWidget {
@@ -124,6 +125,29 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation:0,
+        centerTitle: true,
+        title: Text(
+          'Magic Search',
+          style: GoogleFonts.grandHotel(fontSize: 32),
+          textAlign: TextAlign.right,
+        ),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: IconBackground(
+              icon: CupertinoIcons.back,
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+        ),
+      ),
       body: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor, // 首页列表背景色 <=========
@@ -134,18 +158,7 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             SizedBox(
-              height: 50,
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 27, bottom: 3),
-                  child: Text(
-                    'Search',
-                    style: GoogleFonts.grandHotel(fontSize: 36),
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-              ),
+              height: 40,
             ),
             SizedBox(
               height: 50,

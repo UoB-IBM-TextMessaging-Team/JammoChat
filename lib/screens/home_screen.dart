@@ -92,14 +92,20 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Image.asset(
+                    'assets/logos/app_logo_small_cut.jpg',
+                  height: 40,
+                  width: 40,
+                ),
                 Text(
-                  'Jammo',
+                  'ammo',
                   style: MyTheme.kAppTitle,
                 ),
                 Text(
                   'Chat',
                   style: MyTheme.kAppTitle,
                 ),
+                SizedBox(width: 20)
               ],
             ),
           ),
