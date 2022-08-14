@@ -1,8 +1,16 @@
 import 'dart:async';
+import 'dart:io' as io;
 
+import 'package:audio_session/audio_session.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:flutter_sound/public/flutter_sound_recorder.dart';
+import 'package:flutter_sound_platform_interface/flutter_sound_recorder_platform_interface.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 import 'package:ar_ai_messaging_client_frontend/app.dart';
 import 'package:ar_ai_messaging_client_frontend/app_theme.dart';
@@ -11,7 +19,11 @@ import 'package:ar_ai_messaging_client_frontend/widgets/widgets.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../watson/iam_option.dart';
+import '../watson/speech_to_text.dart';
 import '../widgets/animated_dialog.dart';
+
+const theSource = AudioSource.microphone;
 
 class ChateScreen extends StatefulWidget {
   /*
@@ -51,11 +63,74 @@ class ChateScreen extends StatefulWidget {
 }
 
 class _ChateScreenState extends State<ChateScreen> {
+  // Stream related
   late StreamSubscription<int> unreadCountSubscription;
   late var newMessageSubscription;
-  final TextEditingController controller = TextEditingController();
+
+  // Textfield
+  final TextEditingController sendingTextController = TextEditingController();
+
+  // Dialog
   late OverlayEntry _popupDialog;
 
+  // Recorder
+  Codec _codec = Codec.pcm16WAV;
+  String _mPath = 'tau_file.wav';
+  FlutterSoundRecorder? _mRecorder = FlutterSoundRecorder();
+  bool _mRecorderIsInited = false;
+
+  // Watson
+  bool isWatsonLoading = false;
+
+  @override
+  void dispose() {
+    unreadCountSubscription.cancel();
+    newMessageSubscription.cancel();
+
+    // UNITY
+    unityWidgetController.dispose();
+
+    // Recorder
+    _mRecorder!.closeRecorder();
+    _mRecorder = null;
+
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    unreadCountSubscription = StreamChannel.of(context)
+        .channel
+        .state!
+        .unreadCountStream
+        .listen(_unreadCountHandler);
+
+    //UNITY invoke event listening
+    newMessageSubscription = StreamChannel.of(context)
+        .channel
+        .on("message.new")
+        .listen((Event event) {
+      if (event.message?.user?.id != context.currentUser?.id) {
+        // TODO
+        // Trigger the AR scene
+        sendUnityPlay(event.message?.text);
+        print("Receive Message: ${event.message?.text}");
+      }
+    });
+
+    // Recorder initial
+    updatePath();
+
+    openTheRecorder().then((value) {
+      setState(() {
+        _mRecorderIsInited = true;
+      });
+    });
+  }
+
+  ///////MESSAGE SERVICE
   Future<void> _sendMessage(String text) async {
     setState(() {
       if (text.isNotEmpty) {
@@ -66,12 +141,10 @@ class _ChateScreenState extends State<ChateScreen> {
     });
   }
 
-  _startRec() {
-    print('_startRec()');
-  }
-
-  _stopRec() {
-    print('_stopRec()');
+  Future<void> _unreadCountHandler(int count) async {
+    if (count > 0) {
+      await StreamChannel.of(context).channel.markRead();
+    }
   }
 
   ///////UNITY
@@ -106,49 +179,93 @@ class _ChateScreenState extends State<ChateScreen> {
     );
   }
 
-  ///////UNITY
-
-  @override
-  void initState() {
-    super.initState();
-
-    unreadCountSubscription = StreamChannel.of(context)
-        .channel
-        .state!
-        .unreadCountStream
-        .listen(_unreadCountHandler);
-
-    ///////UNITY
-    newMessageSubscription = StreamChannel.of(context)
-        .channel
-        .on("message.new")
-        .listen((Event event) {
-      if (event.message?.user?.id != context.currentUser?.id) {
-        // TODO
-        // Trigger the AR scene
-        sendUnityPlay(event.message?.text);
-        print("Receive Message: ${event.message?.text}");
+  ///////RECOREDER
+  Future<void> openTheRecorder() async {
+    if (!kIsWeb) {
+      var status = await Permission.microphone.request();
+      if (status != PermissionStatus.granted) {
+        throw RecordingPermissionException('Microphone permission not granted');
       }
-    });
-    ///////UNITY
-  }
-
-  Future<void> _unreadCountHandler(int count) async {
-    if (count > 0) {
-      await StreamChannel.of(context).channel.markRead();
     }
+    await _mRecorder!.openRecorder();
+    if (!await _mRecorder!.isEncoderSupported(_codec) && kIsWeb) {
+      _codec = Codec.opusWebM;
+      _mPath = 'tau_file.webm';
+      if (!await _mRecorder!.isEncoderSupported(_codec) && kIsWeb) {
+        _mRecorderIsInited = true;
+        return;
+      }
+    }
+    final session = await AudioSession.instance;
+    await session.configure(AudioSessionConfiguration(
+      avAudioSessionCategory: AVAudioSessionCategory.playAndRecord,
+      avAudioSessionCategoryOptions:
+          AVAudioSessionCategoryOptions.allowBluetooth |
+              AVAudioSessionCategoryOptions.defaultToSpeaker,
+      avAudioSessionMode: AVAudioSessionMode.spokenAudio,
+      avAudioSessionRouteSharingPolicy:
+          AVAudioSessionRouteSharingPolicy.defaultPolicy,
+      avAudioSessionSetActiveOptions: AVAudioSessionSetActiveOptions.none,
+      androidAudioAttributes: const AndroidAudioAttributes(
+        contentType: AndroidAudioContentType.speech,
+        flags: AndroidAudioFlags.none,
+        usage: AndroidAudioUsage.voiceCommunication,
+      ),
+      androidAudioFocusGainType: AndroidAudioFocusGainType.gain,
+      androidWillPauseWhenDucked: true,
+    ));
+
+    _mRecorderIsInited = true;
   }
 
-  @override
-  void dispose() {
-    unreadCountSubscription.cancel();
-    newMessageSubscription.cancel();
+  Future<void> updatePath() async {
+    io.Directory tempDir = await getTemporaryDirectory();
+    String newpth = await tempDir.path + _mPath;
+    setState(() {
+      _mPath = newpth;
+    });
+  }
 
-    ///////UNITY
-    unityWidgetController.dispose();
-    ///////UNITY
+  _startRec() {
+    _mRecorder!
+        .startRecorder(
+      toFile: _mPath,
+      codec: _codec,
+      audioSource: theSource,
+    )
+        .then((value) {
+      setState(() {});
+    });
+  }
 
-    super.dispose();
+  _stopRec() async {
+    await _mRecorder!.stopRecorder();
+    setState(() {
+      isWatsonLoading = true;
+    });
+    getWatsonResult();
+  }
+
+  ///////WATSON
+  Future<void> getWatsonResult() async {
+    IamOptions options = await IamOptions(
+        iamApiKey: WatsonSTTApikey,
+        url: WatsonSTTUrl
+    ).build();
+    STTResult result = await SpeechToText(
+        iamOptions: options,
+        audioFile: io.File(_mPath),
+        contentType: "audio/wav",
+        model: "en-GB_Multimedia",
+        lowLatency: true
+    ).run();
+
+    // Add converted text to text field
+    sendingTextController.text += result.getAllTranscript();
+
+    setState(() {
+      isWatsonLoading = false;
+    });
   }
 
   @override
@@ -239,7 +356,7 @@ class _ChateScreenState extends State<ChateScreen> {
                         top: false,
                         child: Container(
                           padding: const EdgeInsets.only(
-                              top: 10, bottom: 20, left: 10, right: 10),
+                              top: 10, bottom: 15, left: 10, right: 10),
                           decoration: BoxDecoration(
                             color: Theme.of(context).cardColor,
                             borderRadius: const BorderRadius.only(
@@ -254,7 +371,7 @@ class _ChateScreenState extends State<ChateScreen> {
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20),
-                                  height: 40,
+                                  //height: 40,
                                   margin: const EdgeInsets.only(right: 8),
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).backgroundColor,
@@ -262,6 +379,11 @@ class _ChateScreenState extends State<ChateScreen> {
                                   ),
                                   child: Row(
                                     children: [
+                                      (isWatsonLoading || !_mRecorderIsInited)?
+                                      SpinKitWave(
+                                        color: Colors.grey[500],
+                                        size: 20,
+                                      ):
                                       GestureDetector(
                                         onLongPressStart: (details) {
                                           _popupDialog = _createPopupDialog();
@@ -283,7 +405,9 @@ class _ChateScreenState extends State<ChateScreen> {
                                         child: Padding(
                                           padding: EdgeInsets.only(bottom: 5),
                                           child: TextField(
-                                            controller: controller,
+                                            minLines: 1,
+                                            maxLines: 4,
+                                            controller: sendingTextController,
                                             onChanged: (val) {
                                               StreamChannel.of(context)
                                                   .channel
@@ -331,21 +455,6 @@ class _ChateScreenState extends State<ChateScreen> {
                           ),
                         ),
                       ),
-                      /*
-                        _ActionBar(
-                          onEnterPress: (String s){
-                            setState(() {
-                              _sendMessage(s);
-                            });
-                          },
-                          onIdentityPress: (){
-                            setState(() {
-                              placeObject();
-                            });
-                          },
-                        ),
-
-                         */
                     ],
                   ),
                 ),

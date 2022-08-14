@@ -29,6 +29,9 @@ dependencies:
   flutter_unity_widget: ^2022.1.1+4
   algolia: ^1.1.1
   flutter_spinkit: ^5.1.0
+  flutter_sound: ^9.2.13
+  audio_session: ^0.1.7
+  permission_handler: ^10.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
