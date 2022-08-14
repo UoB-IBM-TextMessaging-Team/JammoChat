@@ -49,6 +49,8 @@ public class Main_control : MonoBehaviour
 
     //watson NLU & TTS
     private watsonNLUTTSIF watsonService;
+    private WasonNLU WasonNLUService = new WasonNLU();
+    private TextToSpeech TextToSpeechService = new TextToSpeech();
     //whether audio is playing in the last frame
     private bool isPlaying_lastframe = false;
     //message
@@ -321,6 +323,18 @@ public class Main_control : MonoBehaviour
         message = text;
     }
     #endregion
+
+    //Global language settings  
+    public void setGlobalNLULanguage(string inputLanguage)
+    {
+        this.WasonNLUService.setNLULanguage(inputLanguage);   
+    }
+
+    public void setGlobalVoice(string inputVoice, string inputLanguage)
+    {
+        this.TextToSpeechService.setVoice(inputVoice, inputLanguage);
+    }
+
 }
 
 

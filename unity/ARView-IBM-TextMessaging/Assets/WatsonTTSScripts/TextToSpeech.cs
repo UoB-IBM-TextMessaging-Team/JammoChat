@@ -328,4 +328,20 @@ public class TextToSpeech : MonoBehaviour
     {
         AduioStop = false;
     }
+
+    public void setVoice(string inputVoice, string inputLanguage)
+    {
+        if(inputVoice == "male" && inputLanguage == "en"){
+            voice = IBM_voices.English_US_Male_MichaelV3;
+        }
+        else if(inputVoice == "female" && inputLanguage == "en"){
+            voice = IBM_voices.English_US_Female_OliviaV3;
+        }
+        else if(inputVoice == "male" && inputLanguage == "fr"){
+            voice = IBM_voices.French_Male_NicolasV3;
+        } 
+        else if(inputVoice == "female" && inputLanguage == "fr"){
+            voice = IBM_voices.French_Female_ReneeV3;
+        }           
+    }
 }
