@@ -22,8 +22,8 @@ import '../widgets/search_bars.dart';
 
 class FriendSearchScreenFb extends StatefulWidget {
   static Route get route => MaterialPageRoute(
-    builder: (context) => FriendSearchScreenFb(),
-  );
+        builder: (context) => FriendSearchScreenFb(),
+      );
 
   FriendSearchScreenFb({Key? key}) : super(key: key);
 
@@ -32,7 +32,6 @@ class FriendSearchScreenFb extends StatefulWidget {
 }
 
 class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
-
   TextEditingController controller = TextEditingController();
 
   final useremail = FirebaseAuth.instance.currentUser?.email;
@@ -42,7 +41,6 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
   final docRef = FirebaseFirestore.instance
       .collection("users")
       .doc(FirebaseAuth.instance.currentUser?.email);
-
 
   Future<void> _getSearchResult(String query) async {
     AlgoliaQuery algoliaQuery = AlgoliaClient()
@@ -91,7 +89,7 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
           'Friend Added!',
           style: GoogleFonts.openSans(fontSize: 26),
         ),
-        content: Text('🤖💓',
+        content: Text('🥰',
             style: TextStyle(
               fontSize: 40,
             )),
@@ -105,7 +103,7 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
 
   updateFriendList() {
     docRef.get().then(
-          (DocumentSnapshot doc) {
+      (DocumentSnapshot doc) {
         final data = doc.data() as Map<String, dynamic>;
         var FriList = data['friendList'] as Map<String, dynamic>;
         setState(() {
@@ -152,13 +150,14 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
             SizedBox(
               height: 50,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16), // 搜索框与手机边缘的padding
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16), // 搜索框与手机边缘的padding
                 child: Card(
                   elevation: 0.4,
                   shape: RoundedRectangleBorder(
                     //side: const BorderSide(color: Colors.blueGrey),
-                    borderRadius:
-                    BorderRadius.circular(16.0), //<-- SEE HERE change radius
+                    borderRadius: BorderRadius.circular(
+                        16.0), //<-- SEE HERE change radius
                   ),
                   child: Container(
                     height: 40,
@@ -168,8 +167,8 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
                     child: TextField(
                       // 文本框+图标
                       controller: controller,
-                      onChanged: (String s){
-                        if(s.isNotEmpty){
+                      onChanged: (String s) {
+                        if (s.isNotEmpty) {
                           setState(() {
                             _getSearchResult(s);
                           });
@@ -196,86 +195,85 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
             Expanded(
                 child: (resultList.isEmpty)
                     ? Center(
-                  child: Center(child: Text('No users found')),
-                )
+                        child: Center(child: Text('No users found')),
+                      )
                     : Scrollbar(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.only(top:6),
-                    itemCount: resultList.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        // message bar height
-                        height: 80,
-                        margin:
-                        const EdgeInsets.symmetric(horizontal: 8,vertical: 6),
+                        child: ListView.builder(
+                          padding: const EdgeInsets.only(top: 6),
+                          itemCount: resultList.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              // message bar height
+                              height: 80,
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 6),
 
-                        // bottom grey line
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Colors.grey,
-                              width: 0.2,
-                            ),
-                          ),
-                        ),
-                        child: ListTile(
-                            leading: Avatar.small(
-                                url: resultList[index].profilePicURL),
-                            title: Text(resultList[index].userName),
-                            subtitle:
-                            Text(resultList[index].userEmail,
-                              style: TextStyle(
-                                  color: Theme.of(context).hintColor
+                              // bottom grey line
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Colors.grey,
+                                    width: 0.2,
+                                  ),
+                                ),
                               ),
-                            ),
-                            trailing: Builder(
-                              builder: (BuildContext context) {
-                                if (resultList[index].userEmail ==
-                                    useremail) {
-                                  return ElevatedButton(
-                                    onPressed: () {},
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                        MaterialStateProperty.all<
-                                            Color>(Colors.grey)),
-                                    child: Icon(CupertinoIcons
-                                        .person_alt_circle_fill),
-                                  );
-                                } else if (friendEmails.contains(
-                                    resultList[index].userEmail)) {
-                                  return ElevatedButton(
-                                    onPressed: () {},
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                        MaterialStateProperty.all<
-                                            Color>(Colors.grey)),
-                                    child: Icon(CupertinoIcons
-                                        .check_mark_circled_solid),
-                                  );
-                                } else {
-                                  return ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                        MaterialStateProperty.all<
-                                            Color>(MyTheme.kPrimaryColor)),
-                                    onPressed: () {
-                                      addFriendUIDToFirestore(
-                                          resultList[index]);
+                              child: ListTile(
+                                  leading: Avatar.small(
+                                      url: resultList[index].profilePicURL),
+                                  title: Text(resultList[index].userName),
+                                  subtitle: Text(
+                                    resultList[index].userEmail,
+                                    style: TextStyle(
+                                        color: Theme.of(context).hintColor),
+                                  ),
+                                  trailing: Builder(
+                                    builder: (BuildContext context) {
+                                      if (resultList[index].userEmail ==
+                                          useremail) {
+                                        return ElevatedButton(
+                                          onPressed: () {},
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all<
+                                                      Color>(Colors.grey)),
+                                          child: Icon(CupertinoIcons
+                                              .person_alt_circle_fill),
+                                        );
+                                      } else if (friendEmails.contains(
+                                          resultList[index].userEmail)) {
+                                        return ElevatedButton(
+                                          onPressed: () {},
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all<
+                                                      Color>(Colors.grey)),
+                                          child: Icon(CupertinoIcons
+                                              .check_mark_circled_solid),
+                                        );
+                                      } else {
+                                        return ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all<
+                                                          Color>(
+                                                      MyTheme.kPrimaryColor)),
+                                          onPressed: () {
+                                            addFriendUIDToFirestore(
+                                                resultList[index]);
+                                          },
+                                          child: Icon(
+                                              CupertinoIcons.person_add_solid),
+                                        );
+                                      }
                                     },
-                                    child: Icon(CupertinoIcons
-                                        .person_add_solid),
-                                  );
-                                }
-                              },
-                            )),
-                      );
-                    },
-                  ),
-                )),
+                                  )),
+                            );
+                          },
+                        ),
+                      )),
           ],
         ),
       ),
     );
   }
 }
-

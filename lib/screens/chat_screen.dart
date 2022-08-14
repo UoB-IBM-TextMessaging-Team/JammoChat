@@ -418,18 +418,23 @@ class _ChateScreenState extends State<ChateScreen> {
                                               //hintText: 'Type your message here ...',
                                               //hintStyle: TextStyle(color: Colors.grey[500], fontWeight: FontWeight.bold),
                                             ),
-                                            onSubmitted: (String s) =>
-                                                setState(() {
-                                              _sendMessage(s);
-                                            }),
                                           ),
                                         ),
                                       ),
                                       const SizedBox(width: 5),
-                                      Icon(
-                                        Icons.attach_file,
-                                        color: Colors.grey[500],
+                                      InkWell(
+                                        onTap: (){
+                                          setState(() {
+                                            _sendMessage(sendingTextController.text);
+                                          });
+                                          sendingTextController.clear();
+                                        },
+                                        child:Icon(
+                                          Icons.send,
+                                          color: Colors.grey[500],
+                                        ),
                                       ),
+
                                     ],
                                   ),
                                 ),
