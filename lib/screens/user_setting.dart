@@ -1,9 +1,13 @@
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
+
 import 'package:ar_ai_messaging_client_frontend/app_theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart' as core;
@@ -62,7 +66,24 @@ class _UserSettingState extends State<UserSetting> {
 
   //upload picture to the firebase store and storage
   Future uploadFile() async {
-    if (_photo == null) return;
+    if (_photo == null) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Oops!'),
+          content: const Text('Please select your profile photo.'),
+          actions: [
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        ),
+      );
+      return;
+    }
     final destination = 'profilePicture/$user';
 
     /*
@@ -101,6 +122,31 @@ class _UserSettingState extends State<UserSetting> {
       final client = core.StreamChatCore.of(context).client;
       final curUser = core.StreamChatCore.of(context).currentUser;
       await client.partialUpdateUser(curUser!.id,set: {"image": downloadUrl});
+
+
+      Timer? timer = Timer(Duration(milliseconds: 1000), () {
+        Navigator.of(context, rootNavigator: true).pop();
+      });
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: Text(
+            'Photo uploaded!',
+            style: GoogleFonts.openSans(fontSize: 26),
+          ),
+          content: Text('😎',
+              style: TextStyle(
+                fontSize: 40,
+              )),
+        ),
+      ).then((value) {
+        // dispose the timer in case something else has triggered the dismiss.
+        timer?.cancel();
+        timer = null;
+        Navigator.of(context).pop();
+      });
+
+
 
     } catch (e) {
       // ignore: avoid_print
@@ -146,7 +192,7 @@ class _UserSettingState extends State<UserSetting> {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    setState(() {});
+                    Navigator.of(context).pop();
                   },
                   style: ElevatedButton.styleFrom(
                       primary: MyTheme.kPrimaryColor,
