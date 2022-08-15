@@ -187,6 +187,14 @@ class _ChateScreenState extends State<ChateScreen> {
     );
   }
 
+  void refreshARObject(){
+    unityWidgetController.postMessage(
+      'main_control',
+      'on_reset_btn',
+      '',
+    );
+  }
+
   ///////RECOREDER
   Future<void> openTheRecorder() async {
     if (!kIsWeb) {
@@ -317,43 +325,36 @@ class _ChateScreenState extends State<ChateScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Center(
                     child: PopupMenuButton(
+                      itemBuilder: (BuildContext context) =>
+                        <PopupMenuEntry>[
+                          PopupMenuItem(
+                            child: Text("AR Scene"),
+                            onTap: switchToMainAR,
+                          ),
+                          PopupMenuItem(
+                            child: Text("Normal Scene"),
+                            onTap: switchToMainNormal,
+                          ),
+                          PopupMenuItem(
+                            child: Text("Refresh Object"),
+                            onTap: refreshARObject,
+                          )
+                        ],
                       icon: Container(
+                        height: 60,
+                        width: 60,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius: BorderRadius.circular(14),
+                          color: Theme.of(context).backgroundColor.withOpacity(0.5),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Theme(
-                            data: AppTheme.dark().copyWith(iconTheme: const IconThemeData(color: Colors.white)),
-                            child: Icon(
-                              Icons.more_vert,
-                              size: 32,
-                            ),
-                          ),
-                        ),
+                        child: Icon(Icons.more_vert),
+
+
                       ),
-                      /*
-                      IconBackground(
-                          icon: Icons.more_vert, onTap: () {  },
-                          ),
 
-                       */
-                      itemBuilder: (context) => [
-                        PopupMenuItem(
-                          child: Text("AR Scene"),
-                          onTap: switchToMainAR,
-                        ),
-                        PopupMenuItem(
-                          child: Text("Normal Scene"),
-                          onTap: switchToMainNormal,
-                        ),
-                        PopupMenuItem(
-                          child: Text("Refresh Object"),
-                        )
-                      ],
+
                     ),
-
-                  ),
+                    ),
                 ),
               ],
             ),
