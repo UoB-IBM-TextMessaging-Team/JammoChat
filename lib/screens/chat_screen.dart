@@ -179,6 +179,14 @@ class _ChateScreenState extends State<ChateScreen> {
     );
   }
 
+  void switchToMainNormal() {
+    unityWidgetController.postMessage(
+      'GameManager',
+      'LoadGameScene',
+      '2',
+    );
+  }
+
   ///////RECOREDER
   Future<void> openTheRecorder() async {
     if (!kIsWeb) {
@@ -308,11 +316,43 @@ class _ChateScreenState extends State<ChateScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Center(
-                    child: IconBackground(
-                        icon: Icons.more_vert,
-                        onTap: () {
-                          print('Check More.');
-                        }),
+                    child: PopupMenuButton(
+                      icon: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: Theme(
+                            data: AppTheme.dark().copyWith(iconTheme: const IconThemeData(color: Colors.white)),
+                            child: Icon(
+                              Icons.more_vert,
+                              size: 32,
+                            ),
+                          ),
+                        ),
+                      ),
+                      /*
+                      IconBackground(
+                          icon: Icons.more_vert, onTap: () {  },
+                          ),
+
+                       */
+                      itemBuilder: (context) => [
+                        PopupMenuItem(
+                          child: Text("AR Scene"),
+                          onTap: switchToMainAR,
+                        ),
+                        PopupMenuItem(
+                          child: Text("Normal Scene"),
+                          onTap: switchToMainNormal,
+                        ),
+                        PopupMenuItem(
+                          child: Text("Refresh Object"),
+                        )
+                      ],
+                    ),
+
                   ),
                 ),
               ],

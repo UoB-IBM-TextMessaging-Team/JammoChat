@@ -303,7 +303,13 @@ public class Main_control : MonoBehaviour
     public void on_place_btn()
     {
         //Place object
-        this.change_to_object_is_placed();
+
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("ARObject");
+        if(objs.Length == 0)
+        {
+            this.change_to_object_is_placed();
+        }
+        
     }
 
     // Actions after pressing confirm button

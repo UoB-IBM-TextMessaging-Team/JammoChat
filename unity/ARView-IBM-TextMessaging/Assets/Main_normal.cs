@@ -120,11 +120,17 @@ public class Main_normal : MonoBehaviour
         }
             
     }
-        
+
 
 
 
     #region 
+
+    private void StartPlayMessage(string text)
+    {
+        messageSignal = 1;
+        message = text;
+    }
     // Actions after pressing confirm button
     private void OnConfirmAction()
     {

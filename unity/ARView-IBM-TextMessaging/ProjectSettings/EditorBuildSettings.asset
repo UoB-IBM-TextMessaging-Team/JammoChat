@@ -8,12 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MainAR.unity
     guid: 489bb1a8db984b546bada59e22f972ad
-  - enabled: 0
-    path: Assets/MainNormal.unity
-    guid: 0b16d052435a70349b8673f3ae701278
   - enabled: 1
     path: Assets/Show.unity
     guid: 98ff279020b3763448fc0e75af3ecd6b
+  - enabled: 1
+    path: Assets/MainNormal.unity
+    guid: 0b16d052435a70349b8673f3ae701278
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 906158b753bcd5f43832a817d79909b2, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 5abb7bf5775754c349ee756010a3a1fd, type: 2}
