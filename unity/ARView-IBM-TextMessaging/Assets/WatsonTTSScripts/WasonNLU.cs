@@ -50,6 +50,7 @@ public class WasonNLU
     private const string versionDate = "2022-04-07";
     private string emotionResult = null;
     private string nluText;
+    private string nluLanguage = "en";
     public AnalysisResults analyzeResponse;
     public WasonNLU(string text)
     {
@@ -74,6 +75,21 @@ public class WasonNLU
     public AnalysisResults getAnalysisResults()
     {
         return analyzeResponse;
+    }
+
+    public void setNLULanguage(string inputLanguage)
+    {
+        switch(inputLanguage){
+            case "fr":
+                nluLanguage = "fr";
+                break;
+            case "en":
+                nluLanguage = "en";
+                break;
+            default:
+                nluLanguage = "en";
+                break;
+        }        
     }
 
     private NaturalLanguageUnderstandingService service;
@@ -139,7 +155,7 @@ public class WasonNLU
             },
             features: features,
             text: nluText,
-            language: "en"
+            language: nluLanguage
         //url: serviceUrl
         );
         //Debug.Log("NLU"+emotionResult);
