@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:ar_ai_messaging_client_frontend/app_theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:path/path.dart' as p;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -34,7 +35,7 @@ class _UserSettingState extends State<UserSetting> {
   String picture =
       ""; // picture in the firebase store (defalut: picture is empty)
   bool change = false;
-  final useremail = FirebaseAuth.instance.currentUser?.email;
+  //final useremail = FirebaseAuth.instance.currentUser?.email;
   final user = FirebaseAuth.instance.currentUser?.email;
   //find the picture in the firebase store
   // Future findProfilePic() async {
@@ -49,7 +50,7 @@ class _UserSettingState extends State<UserSetting> {
     try {
       await FirebaseFirestore.instance
           .collection("users")
-          .doc(useremail)
+          .doc(user)
           .get()
           .then((snapshot) => {picture = snapshot.data()!["profilePicURL"]});
     } catch (e) {
@@ -86,22 +87,22 @@ class _UserSettingState extends State<UserSetting> {
     }
     final destination = 'profilePicture/$user';
 
-    /*
     // Compress the image
     String dir = (await getTemporaryDirectory()).path;
-    File compressFile = new File('$dir/lastProfileCompressed.jpeg');;
+    String fileExtension = p.extension(_photo!.path);
+    File compressFile = new File('$dir/lastProfileCompressed$fileExtension');
     await FlutterImageCompress.compressAndGetFile(
-      _photo!.path, compressFile.path,format: CompressFormat.jpeg,
-      quality: 5,
+      _photo!.path, compressFile.path,//format: CompressFormat.jpeg,
+      quality: 15,
     );
 
 
-     */
+
     try {
       final ref = firebase_storage.FirebaseStorage.instance
           .ref(destination)
           .child('${user}_profile_Picture/');
-      await ref.putFile(_photo!);
+      await ref.putFile(compressFile!);
     } catch (e) {
       // ignore: avoid_print
       print('error occured');
@@ -115,7 +116,7 @@ class _UserSettingState extends State<UserSetting> {
       final String downloadUrl = await ref.getDownloadURL();
       await FirebaseFirestore.instance
           .collection("users")
-          .doc(useremail)
+          .doc(user)
           .update({"profilePicURL": downloadUrl});
 
       // Stream Update
@@ -325,7 +326,7 @@ class _UserSettingState extends State<UserSetting> {
   void takePhoto(ImageSource source) async {
     final pickedFile = await _picker.pickImage(
         source: source,
-        imageQuality: 10
+        //imageQuality: 10
     );
     // the picture in the gallery or camera store in _photo
     setState(() {

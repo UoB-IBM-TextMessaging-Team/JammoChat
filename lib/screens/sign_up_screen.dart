@@ -345,7 +345,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     //storage
 
 
-    /*
+
     // Compress the image
     String dir = (await getTemporaryDirectory()).path;
     String fileExtension = p.extension(_photo!.path);
@@ -357,17 +357,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 
 
-     */
-
-
-
-
     final destination = 'profilePicture/${_emailController.text}';
     try {
       final ref = firebase_storage.FirebaseStorage.instance
           .ref(destination)
           .child('${_nameController.text.trim()}_profile_Picture/');
-      await ref.putFile(_photo!);
+      await ref.putFile(compressFile!);
     } catch (e) {
       // ignore: avoid_print
       print('error occured');
@@ -755,7 +750,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void takePhoto(ImageSource source) async {
     final pickedFile = await _picker.pickImage(
       source: source,
-      imageQuality: 10,
+      //imageQuality: 10,
     );
     // the picture in the gallery or camera store in _photo
     setState(() {
