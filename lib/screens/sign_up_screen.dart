@@ -274,6 +274,7 @@
 // }
 
 import 'dart:io';
+import 'package:path/path.dart' as p;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -343,18 +344,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
     //storage
 
-    /*
 
+    /*
     // Compress the image
     String dir = (await getTemporaryDirectory()).path;
-    File compressFile = new File('$dir/lastProfileCompressed.jpeg');
+    String fileExtension = p.extension(_photo!.path);
+    File compressFile = new File('$dir/lastProfileCompressed$fileExtension');
     await FlutterImageCompress.compressAndGetFile(
-      _photo!.path, compressFile.path,format: CompressFormat.jpeg,
+      _photo!.path, compressFile.path,//format: CompressFormat.jpeg,
       quality: 5,
     );
-    */
 
-    final destination = 'profilePicture/${_nameController.text}';
+
+
+     */
+
+
+
+
+    final destination = 'profilePicture/${_emailController.text}';
     try {
       final ref = firebase_storage.FirebaseStorage.instance
           .ref(destination)
