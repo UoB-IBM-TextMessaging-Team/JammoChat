@@ -60,7 +60,7 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
     });
   }
 
-  addFriendUIDToFirestore(UserAlgoliaProfile friendToAdd) async {
+  _addUserToFriendList(UserAlgoliaProfile friendToAdd) async {
     // Detect self adding
     String targetEmail = friendToAdd.userEmail;
     if (targetEmail == useremail) return;
@@ -271,7 +271,7 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
                                                           Color>(
                                                       MyTheme.kPrimaryColor)),
                                           onPressed: () {
-                                            addFriendUIDToFirestore(
+                                            _addUserToFriendList(
                                                 resultList[index]);
                                           },
                                           child: Icon(

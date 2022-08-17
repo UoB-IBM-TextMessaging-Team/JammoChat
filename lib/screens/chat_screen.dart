@@ -76,7 +76,7 @@ class _ChateScreenState extends State<ChateScreen> {
   // Recorder
   Codec _codec = Codec.pcm16WAV;
   String _mPath = 'tau_file.wav';
-  FlutterSoundRecorder? _mRecorder = FlutterSoundRecorder();
+  FlutterSoundRecorder? audioRecorder = FlutterSoundRecorder();
   bool _mRecorderIsInited = false;
 
   // Watson
@@ -88,11 +88,17 @@ class _ChateScreenState extends State<ChateScreen> {
     newMessageSubscription.cancel();
 
     // UNITY
+
+    unityWidgetController.postMessage(
+      'GameManager',
+      'LoadGameScene',
+      '0',
+    );
     unityWidgetController.dispose();
 
     // Recorder
-    _mRecorder!.closeRecorder();
-    _mRecorder = null;
+    audioRecorder!.closeRecorder();
+    audioRecorder = null;
 
     super.dispose();
   }
@@ -175,7 +181,7 @@ class _ChateScreenState extends State<ChateScreen> {
     unityWidgetController.postMessage(
       'GameManager',
       'LoadGameScene',
-      '0',
+      '1',
     );
   }
 
@@ -203,11 +209,11 @@ class _ChateScreenState extends State<ChateScreen> {
         throw RecordingPermissionException('Microphone permission not granted');
       }
     }
-    await _mRecorder!.openRecorder();
-    if (!await _mRecorder!.isEncoderSupported(_codec) && kIsWeb) {
+    await audioRecorder!.openRecorder();
+    if (!await audioRecorder!.isEncoderSupported(_codec) && kIsWeb) {
       _codec = Codec.opusWebM;
       _mPath = 'tau_file.webm';
-      if (!await _mRecorder!.isEncoderSupported(_codec) && kIsWeb) {
+      if (!await audioRecorder!.isEncoderSupported(_codec) && kIsWeb) {
         _mRecorderIsInited = true;
         return;
       }
@@ -243,7 +249,7 @@ class _ChateScreenState extends State<ChateScreen> {
   }
 
   _startRec() {
-    _mRecorder!
+    audioRecorder!
         .startRecorder(
       toFile: _mPath,
       codec: _codec,
@@ -255,15 +261,15 @@ class _ChateScreenState extends State<ChateScreen> {
   }
 
   _stopRec() async {
-    await _mRecorder!.stopRecorder();
+    await audioRecorder!.stopRecorder();
     setState(() {
       isWatsonLoading = true;
     });
-    getWatsonResult();
+    _getWatsonResult();
   }
 
   ///////WATSON
-  Future<void> getWatsonResult() async {
+  Future<void> _getWatsonResult() async {
     IamOptions options = await IamOptions(
         iamApiKey: WatsonSTTApikey,
         url: WatsonSTTUrl

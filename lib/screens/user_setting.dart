@@ -35,8 +35,7 @@ class _UserSettingState extends State<UserSetting> {
   String picture =
       ""; // picture in the firebase store (defalut: picture is empty)
   bool change = false;
-  //final useremail = FirebaseAuth.instance.currentUser?.email;
-  final user = FirebaseAuth.instance.currentUser?.email;
+  final userEmail = FirebaseAuth.instance.currentUser?.email;
   //find the picture in the firebase store
   // Future findProfilePic() async {
   //   try {
@@ -50,7 +49,7 @@ class _UserSettingState extends State<UserSetting> {
     try {
       await FirebaseFirestore.instance
           .collection("users")
-          .doc(user)
+          .doc(userEmail)
           .get()
           .then((snapshot) => {picture = snapshot.data()!["profilePicURL"]});
     } catch (e) {
@@ -85,7 +84,7 @@ class _UserSettingState extends State<UserSetting> {
       );
       return;
     }
-    final destination = 'profilePicture/$user';
+    final destination = 'profilePicture/$userEmail';
 
     // Compress the image
     String dir = (await getTemporaryDirectory()).path;
@@ -101,7 +100,7 @@ class _UserSettingState extends State<UserSetting> {
     try {
       final ref = firebase_storage.FirebaseStorage.instance
           .ref(destination)
-          .child('${user}_profile_Picture/');
+          .child('${userEmail}_profile_Picture/');
       await ref.putFile(compressFile!);
     } catch (e) {
       // ignore: avoid_print
@@ -112,11 +111,11 @@ class _UserSettingState extends State<UserSetting> {
       // Firestore Update
       final ref = firebase_storage.FirebaseStorage.instance
           .ref(destination)
-          .child('${user}_profile_Picture/');
+          .child('${userEmail}_profile_Picture/');
       final String downloadUrl = await ref.getDownloadURL();
       await FirebaseFirestore.instance
           .collection("users")
-          .doc(user)
+          .doc(userEmail)
           .update({"profilePicURL": downloadUrl});
 
       // Stream Update

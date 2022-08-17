@@ -53,13 +53,20 @@ class _UserProfileState extends State<UserProfile> {
     unityWidgetController.postMessage(
       'GameManager',
       'LoadGameScene',
-      '1',
+      '3',
     );
   }
 
   @override
   void dispose() {
+
+
     ///////UNITY
+    unityWidgetController.postMessage(
+      'GameManager',
+      'LoadGameScene',
+      '0',
+    );
     unityWidgetController.dispose();
     ///////UNITY
 

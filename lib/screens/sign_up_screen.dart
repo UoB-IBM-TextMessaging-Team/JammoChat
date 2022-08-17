@@ -321,9 +321,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   // final user = FirebaseAuth.instance.currentUser?.email;
   // final useremail = FirebaseAuth.instance.currentUser?.email;
 
-  //gallery image picker
+  // gallery image picker
 
-  Future<void> _signUp() async {
+  Future<void> _signUpThenLogin() async {
     if (_photo == null) {
       showDialog(
         context: context,
@@ -627,7 +627,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             onPrimary: Colors.white, // foreground
                             fixedSize: Size(120, 20),
                           ),
-                          onPressed: _signUp,
+                          onPressed: _signUpThenLogin,
                           child: const Text(
                             'Sign up',
                             style: TextStyle(fontWeight: FontWeight.bold),
