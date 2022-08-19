@@ -36,13 +36,13 @@ To build the app, you just need to:
 
 If you got any installation or build problem, check your flutter config using `flutter doctor`. Make sure `android/local.properties` are set correctly. Further question please dm @Cheong43 .
 
-## Unity Project Folder
+### Unity Project Folder
 
 `/unity` is the unity project location, `ARView-IBM-TextMessaging` is the current unity work dir. The `flutter-unity-view-widget-plugin` and `IBM Watson Unity sdk` already installed, please do not making any change on them.
 
 If you would like to build the unity project independently, just use the unity `build and run`
 
-## Trouble Shooting
+### Trouble Shooting
 
 *Work in progress..    
 Any "redeclaration" error when building, just run `flutter clean`, it will clean the pub cache.    
