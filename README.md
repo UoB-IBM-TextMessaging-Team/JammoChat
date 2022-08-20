@@ -8,12 +8,14 @@ Brief look             |  AR/AI chat interface
 ![20220812_153024](https://user-images.githubusercontent.com/13105267/184378612-d688535d-3a87-4ff2-ad1b-8755ac95ba5f.gif)  |   ![20220812_155903](https://user-images.githubusercontent.com/13105267/184383193-325864c3-2864-4fc9-ba59-6b24ef1faf62.gif)
 
 
-## Project Brief
+## Project Brief by Client
 
 AI and Augmented Reality Text Messaging Application - create a new text messaging application that is designed to run on mobile devices (Android) that will provide a more visual experience to text messaging, in the form of an augmented reality avatar (that represents the sender) and speaks out the message using Watson
 
 
 ## Build Instruction
+
+*To custom you server, you need to reset the firebase and microservice config.*
 
 The build requirement including:
 
@@ -34,7 +36,7 @@ To build the app, you just need to:
 3. (Highly recommended) Installing flutter plugin in your working IDE
 4. `flutter run`    
 
-If you got any installation or build problem, check your flutter config using `flutter doctor`. Make sure `android/local.properties` are set correctly. Further question please dm @Cheong43 .
+If you got any installation or build problem, check your flutter config using `flutter doctor`. Make sure `android/local.properties` are set correctly. Further question please dm [@Cheong43](https://github.com/Cheong43) .
 
 ### Unity Project Folder
 
