@@ -26,26 +26,7 @@ import '../widgets/animated_dialog.dart';
 const theSource = AudioSource.microphone;
 
 class ChateScreen extends StatefulWidget {
-  /*
-  static Route routeWithChannel(Channel channel) => MaterialPageRoute(
-        builder: (context) => StreamChannel(
-          channel: channel,
-          child: const ChateScreen(),
-        ),
-      );
-   */
-
-  /*
-  static Route routeWithChannel(Channel channel) => PageRouteBuilder(
-      pageBuilder: (context,animation, secondaryAnimation) => StreamChannel(
-        channel: channel,
-        child: const ChateScreen(),
-      ),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      return child;
-    },
-  );
-*/
+  
 
   static Route routeWithChannel(Channel channel) => ZeroDurationRoute(
         builder: (context) => StreamChannel(
