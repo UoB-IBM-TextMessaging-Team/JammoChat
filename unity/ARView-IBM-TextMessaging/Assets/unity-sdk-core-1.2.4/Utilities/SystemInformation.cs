@@ -70,6 +70,10 @@ namespace IBM.Cloud.SDK.Utilities
                     Match m = pattern.Match(OsInfo);
                     osVersion = m.Value;
                 }
+                if (string.IsNullOrEmpty(osVersion))
+                {
+                    osVersion = "1";
+                }
 
                 return osVersion;
             }
