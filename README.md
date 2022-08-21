@@ -52,12 +52,12 @@ If you would like to build the unity project independently, just use the unity `
 Any "redeclaration" error when building, just run `flutter clean`, it will clean the pub cache.    
 
 ## Team Members
-- Paul Chou
-- Zhichang Lin
-- Xiaolan Li
-- Xiuqing Wang
-- Wangchen Zhao
-- Junchan Zhou
+- Paul Chou ([@PoHsuanChou](https://github.com/PoHsuanChou))
+- Zhichang Lin ([@Cheong43](https://github.com/Cheong43))
+- Xiaolan Li ([@XLanLi](https://github.com/XLanLi))
+- Xiuqing Wang ([@Aeolia1](https://github.com/Aeolia1))
+- Wangchen Zhao ([@Corey52HZ](https://github.com/Corey52HZ))
+- Junchan Zhou ([@zzzhh7](https://github.com/zzzhh7))
 
 
 
