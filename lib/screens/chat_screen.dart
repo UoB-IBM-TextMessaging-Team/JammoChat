@@ -280,7 +280,7 @@ class _ChateScreenState extends State<ChateScreen> {
           onUnityCreated: onUnityCreated,
           onUnityMessage: onUnityMessage,
           //webUrl: 'http://localhost:6080',
-          useAndroidViewSurface: false,
+          useAndroidViewSurface: true,
           fullscreen: false,
         ),
         Container(

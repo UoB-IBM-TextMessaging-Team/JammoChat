@@ -101,7 +101,7 @@ class _UserProfileState extends State<UserProfile> {
                 onUnityCreated: onUnityCreated,
                 onUnityMessage: onUnityMessage,
                 //webUrl: 'http://localhost:6080',
-                useAndroidViewSurface: false,
+                useAndroidViewSurface: true,
                 fullscreen: false,
           )),
           Scaffold(
