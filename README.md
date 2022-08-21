@@ -7,6 +7,7 @@ Brief look             |  AR/AI chat interface
 :-------------------------:|:-------------------------:
 ![20220812_153024](https://user-images.githubusercontent.com/13105267/184378612-d688535d-3a87-4ff2-ad1b-8755ac95ba5f.gif)  |   ![20220812_155903](https://user-images.githubusercontent.com/13105267/184383193-325864c3-2864-4fc9-ba59-6b24ef1faf62.gif)
 
+This project repo merge from [a flutter project](https://github.com/UoB-IBM-TextMessaging-Team/ar_ai_textmessaging_main) and [a unity project](https://github.com/UoB-IBM-TextMessaging-Team/ar_ai_textmessaging_unity). 
 
 ## Project Brief by Client
 
