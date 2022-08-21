@@ -1,7 +1,9 @@
 #  <img src="https://user-images.githubusercontent.com/13105267/184379189-378c004f-26e2-45a7-b5a8-0c3fe310e49c.jpg" width="60" height="60"> JammoChat - AR & AI Chatting Experience 
 
 A text messaging app with vivid AR & AI experience powered by *IBM Watson*.  
-Special thanks to [Mix and Jam](https://www.youtube.com/c/mixandjam) with wonderful open-source 3D asset!
+Special thanks to [Mix and Jam](https://www.youtube.com/c/mixandjam) with wonderful open-source 3D asset!  
+
+**This project repo merge from [a flutter project](https://github.com/UoB-IBM-TextMessaging-Team/ar_ai_textmessaging_main) and [a unity project](https://github.com/UoB-IBM-TextMessaging-Team/ar_ai_textmessaging_unity). If you would like to learn more, please take a quick glance on our team homepage.:grinning:**
 
 Brief look             |  AR/AI chat interface
 :-------------------------:|:-------------------------:
@@ -26,13 +28,13 @@ The build requirement including:
 
 To build the app, you just need to:
 
-1. (First time init/If the unity project been changed/) Open the `unity` project in`/unity/ARView-IBM-TextMessaging`, In `File` select `build setting` and switch platform to`android`. Then Menu -> Flutter -> Export Android
+1. (First time init/If the unity project been changed) Open the `unity` project in`/unity/ARView-IBM-TextMessaging`, In `File` select `build setting` and switch platform to`android`. Then Menu -> Flutter -> Export Android
 2. Setting up`android/local.properties`. If you excute `flutter run`, a `android/local.properties` will automatically generates. But you still need to set `flutter.compileSdkVersion`,`flutter.minSdkVersion` and  `ndk.dir`. Following varibles are essential to the project build:    
    `sdk.dir=<android SDK location>`  
    `flutter.sdk=<Flutter location>`  
    `flutter.compileSdkVersion=33`  
    `flutter.minSdkVersion=24`  
-   `ndk.dir=<android NDK location>`    (You can find your android NDK path in Unity->Menu->Edit->Preferences->External Tools)
+   `ndk.dir=<android NDK location>`    (You can find your android NDK path installed with unity in Unity->Menu->Edit->Preferences->External Tools)
 3. (Highly recommended) Installing flutter plugin in your working IDE
 4. `flutter run`    
 
