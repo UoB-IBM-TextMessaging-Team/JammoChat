@@ -28,13 +28,13 @@ The build requirement including:
 
 To build the app, you just need to:
 
-1. (First time init/If the unity project been changed/) Open the `unity` project in`/unity/ARView-IBM-TextMessaging`, In `File` select `build setting` and switch platform to`android`. Then Menu -> Flutter -> Export Android
+1. (First time init/If the unity project been changed) Open the `unity` project in`/unity/ARView-IBM-TextMessaging`, In `File` select `build setting` and switch platform to`android`. Then Menu -> Flutter -> Export Android
 2. Setting up`android/local.properties`. If you excute `flutter run`, a `android/local.properties` will automatically generates. But you still need to set `flutter.compileSdkVersion`,`flutter.minSdkVersion` and  `ndk.dir`. Following varibles are essential to the project build:    
    `sdk.dir=<android SDK location>`  
    `flutter.sdk=<Flutter location>`  
    `flutter.compileSdkVersion=33`  
    `flutter.minSdkVersion=24`  
-   `ndk.dir=<android NDK location>`    (You can find your android NDK path in Unity->Menu->Edit->Preferences->External Tools)
+   `ndk.dir=<android NDK location>`    (You can find your android NDK path installed with unity in Unity->Menu->Edit->Preferences->External Tools)
 3. (Highly recommended) Installing flutter plugin in your working IDE
 4. `flutter run`    
 
