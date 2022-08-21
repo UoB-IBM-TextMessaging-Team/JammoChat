@@ -63,5 +63,7 @@ Any "redeclaration" error when building, just run `flutter clean`, it will clean
 - Wangchen Zhao ([@Corey52HZ](https://github.com/Corey52HZ))
 - Junchan Zhou ([@zzzhh7](https://github.com/zzzhh7))
 
+## Our Friends
 
-
+Shout out to our lovely buddy [UoB-SpaceMath](https://github.com/UOB-SpaceMath) team! We shared a lot of development experience along the way.  
+They did [a cool educative math game](https://github.com/UOB-SpaceMath/SpaceMath) with AR and IBM Watson, definitely worth a look👾
