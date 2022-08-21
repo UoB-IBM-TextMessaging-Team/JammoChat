@@ -1,13 +1,14 @@
 #  <img src="https://user-images.githubusercontent.com/13105267/184379189-378c004f-26e2-45a7-b5a8-0c3fe310e49c.jpg" width="60" height="60"> JammoChat - AR & AI Chatting Experience 
 
 A text messaging app with vivid AR & AI experience powered by *IBM Watson*.  
-Special thanks to [Mix and Jam](https://www.youtube.com/c/mixandjam) with wonderful open-source 3D asset!
+Special thanks to [Mix and Jam](https://www.youtube.com/c/mixandjam) with wonderful open-source 3D asset!  
+
+**This project repo merge from [a flutter project](https://github.com/UoB-IBM-TextMessaging-Team/ar_ai_textmessaging_main) and [a unity project](https://github.com/UoB-IBM-TextMessaging-Team/ar_ai_textmessaging_unity). If you would like to learn more, please take a quick glance on our team homepage.:grinning:**
 
 Brief look             |  AR/AI chat interface
 :-------------------------:|:-------------------------:
 ![20220812_153024](https://user-images.githubusercontent.com/13105267/184378612-d688535d-3a87-4ff2-ad1b-8755ac95ba5f.gif)  |   ![20220812_155903](https://user-images.githubusercontent.com/13105267/184383193-325864c3-2864-4fc9-ba59-6b24ef1faf62.gif)
 
-This project repo merge from [a flutter project](https://github.com/UoB-IBM-TextMessaging-Team/ar_ai_textmessaging_main) and [a unity project](https://github.com/UoB-IBM-TextMessaging-Team/ar_ai_textmessaging_unity). 
 
 ## Project Brief by Client
 
