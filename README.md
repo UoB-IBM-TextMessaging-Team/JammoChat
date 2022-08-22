@@ -55,13 +55,13 @@ If you would like to build the unity project independently, just use the unity `
 *Work in progress..    
 Any "redeclaration" error when building, just run `flutter clean`, it will clean the pub cache.    
 
-## Team Members
+## Team Members （Sort by first letter of last name)
 - Paul Chou ([@PoHsuanChou](https://github.com/PoHsuanChou))
 - Zhichang Lin ([@Cheong43](https://github.com/Cheong43))
 - Xiaolan Li ([@XLanLi](https://github.com/XLanLi))
 - Xiuqing Wang ([@Aeolia1](https://github.com/Aeolia1))
 - Wangchen Zhao ([@Corey52HZ](https://github.com/Corey52HZ))
-- Junchan Zhou ([@zzzhh7](https://github.com/zzzhh7))
+- Junchang Zhou ([@zzzhh7](https://github.com/zzzhh7))
 
 ## Our Friends
 
