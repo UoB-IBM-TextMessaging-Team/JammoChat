@@ -47,7 +47,7 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
     AlgoliaQuery algoliaQuery = AlgoliaClient()
         .algoliaClient
         .instance
-        .index("ar_ai_textmessaging_user")
+        .index("jammoChatUser")
         .query(query);
     AlgoliaQuerySnapshot snapshot = await algoliaQuery.getObjects();
     print("snapshot");

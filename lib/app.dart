@@ -3,7 +3,7 @@ import 'package:logger/logger.dart' as log;
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 import 'package:algolia/algolia.dart';
 
-const streamKey = 'c8m5epxejk8e';
+const streamKey = 'b8pck5xtt8gr';
 const WatsonSTTApikey = "V54HsAymPgGoYbINdYowOHxK7-ULgpTmAubGBFgg68E-";
 const WatsonSTTUrl = "https://api.eu-gb.speech-to-text.watson.cloud.ibm.com/instances/30206445-a817-40a2-aac9-e5432636a66c";
 
