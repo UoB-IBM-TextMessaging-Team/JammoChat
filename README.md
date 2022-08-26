@@ -29,12 +29,16 @@ The build requirement including:
 To build the app, you just need to:
 
 1. (First time init/If the unity project been changed) Open the `unity` project in`/unity/ARView-IBM-TextMessaging`, In `File` select `build setting` and switch platform to`android`. Then Menu -> Flutter -> Export Android
-2. Setting up`android/local.properties`. If you excute `flutter run`, a `android/local.properties` will automatically generates. But you still need to set `flutter.compileSdkVersion`,`flutter.minSdkVersion` and  `ndk.dir`. Following varibles are essential to the project build:    
-   `sdk.dir=<android SDK location>`  
-   `flutter.sdk=<Flutter location>`  
-   `flutter.compileSdkVersion=33`  
-   `flutter.minSdkVersion=24`  
-   `ndk.dir=<android NDK location>`    (You can find your android NDK path installed with unity in Unity->Menu->Edit->Preferences->External Tools)
+2. Setting up`android/local.properties`. If you excute `flutter run`, a `android/local.properties` will automatically generates. But you still need to set `flutter.compileSdkVersion`,`flutter.minSdkVersion` and  `ndk.dir`. Following varibles are essential to the project build:  
+
+   ```
+   sdk.dir=<android SDK location>
+   flutter.sdk=<Flutter location>
+   flutter.compileSdkVersion=33
+   flutter.minSdkVersion=24
+   ndk.dir=<android NDK location>    //You can find your android NDK path installed with unity in Unity->Menu->Edit->Preferences->External Tools
+   ```
+   
 3. (Highly recommended) Installing flutter plugin in your working IDE
 4. `flutter run`    
 
@@ -42,7 +46,7 @@ If you got any installation or build problem, check your flutter config using `f
 
 ### Unity Project Folder
 
-`/unity` is the unity project location, `ARView-IBM-TextMessaging` is the current unity work dir. The `flutter-unity-view-widget-plugin` and `IBM Watson Unity sdk` already installed, please do not making any change on them.
+`/unity` is the unity project location, `ARView-IBM-TextMessaging` is the current unity working dir. If you would like do any modification, make sure using `Unity 2022.1.1f1`.
 
 If you would like to build the unity project independently, just use the unity `build and run`
 
@@ -51,13 +55,15 @@ If you would like to build the unity project independently, just use the unity `
 *Work in progress..    
 Any "redeclaration" error when building, just run `flutter clean`, it will clean the pub cache.    
 
-## Team Members
-- Paul Chou
-- Zhichang Lin
-- Xiaolan Li
-- Xiuqing Wang
-- Wangchen Zhao
-- Junchan Zhou
+## Team Members （Sort by first letter of last name)
+- Paul Chou ([@PoHsuanChou](https://github.com/PoHsuanChou))
+- Zhichang Lin ([@Cheong43](https://github.com/Cheong43))
+- Xiaolan Li ([@XLanLi](https://github.com/XLanLi))
+- Xiuqing Wang ([@Aeolia1](https://github.com/Aeolia1))
+- Wangchen Zhao ([@Corey52HZ](https://github.com/Corey52HZ))
+- Junchang Zhou ([@zzzhh7](https://github.com/zzzhh7))
 
+## Our Friends
 
-
+Shout out to our lovely buddy [UoB-SpaceMath](https://github.com/UOB-SpaceMath) team! We shared a lot of development experience along the way.  
+They did [a cool educative math game](https://github.com/UOB-SpaceMath/SpaceMath) with AR and IBM Watson, definitely worth a look👾
