@@ -21,6 +21,7 @@ AI and Augmented Reality Text Messaging Application - create a new text messagin
 
 The build requirement including:
 
+* [ARCore suported device](https://developers.google.com/ar/devices) and enable Google Play Services for AR.  
 * [Google flutter (3.0.0+)](https://docs.flutter.dev/get-started/install)
 *Due to a flutter upstream bug with `PlatformView` existing in flutter 3.0.0-3.1.0, it's recommend to bump flutter version to 3.3.0 pre. Details: [issue #17](https://github.com/UoB-IBM-TextMessaging-Team/ar_ai_textmessaging_unity/issues/17)*
 
