@@ -129,10 +129,10 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation:0,
-        centerTitle: true,
+        centerTitle: false,
         title: Text(
           'Magic Search',
-          style: GoogleFonts.grandHotel(fontSize: 32),
+          style: GoogleFonts.lobster(fontSize: 22),
           textAlign: TextAlign.right,
         ),
         leading: Padding(
@@ -208,7 +208,15 @@ class FriendSearchScreenFbState extends State<FriendSearchScreenFb> {
             Expanded(
                 child: (resultList.isEmpty)
                     ? Center(
-                        child: Center(child: Text('No users found')),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 70,),
+                            Text('🤔🔍',style: TextStyle(fontSize: 40),),
+                            SizedBox(height: 20,),
+                            Text('Try to type a name?',textAlign: TextAlign.center,),
+                          ],
+                        ),
+
                       )
                     : Scrollbar(
                         child: ListView.builder(
