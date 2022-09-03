@@ -303,11 +303,11 @@ public class Main_control : MonoBehaviour
     public void on_place_btn()
     {
         //Place object
-
         GameObject[] objs = GameObject.FindGameObjectsWithTag("ARObject");
         if(objs.Length == 0)
         {
             this.change_to_object_is_placed();
+            this.gameobject_hint_text.SetActive(false);
         }
         
     }

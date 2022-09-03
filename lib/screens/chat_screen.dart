@@ -100,7 +100,6 @@ class _ChateScreenState extends State<ChateScreen> {
         .on("message.new")
         .listen((Event event) {
       if (event.message?.user?.id != context.currentUser?.id) {
-        // TODO
         // Trigger the AR scene
         sendUnityPlay(event.message?.text);
         print("Receive Message: ${event.message?.text}");
