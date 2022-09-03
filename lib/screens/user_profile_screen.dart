@@ -75,6 +75,27 @@ class _UserProfileState extends State<UserProfile> {
 
   ///////UNITY
 
+  void WipDialog(){
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text('Work in progress...'),
+          content: Text('Follow our GitHub/Website to get latest news!'),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Okay'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        )
+    );
+  }
+
   Future findProfilePic() async {
     try {
       await FirebaseFirestore.instance
@@ -219,6 +240,7 @@ class _UserProfileState extends State<UserProfile> {
                     GestureDetector(
                       onTap: () {
                         print('change avatar');
+                        WipDialog();
                       },
                       child: Container(
                         height: 48,
@@ -239,6 +261,7 @@ class _UserProfileState extends State<UserProfile> {
                     GestureDetector(
                       onTap: (() {
                         print('change voice');
+                        WipDialog();
                       }),
                       child: Container(
                         height: 48,
