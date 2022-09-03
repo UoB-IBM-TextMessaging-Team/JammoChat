@@ -125,7 +125,12 @@ class _UserProfileState extends State<UserProfile> {
                     child: IconBackground(
                         icon: Icons.settings,
                         onTap: () {
-                          print('Setting');
+
+                          print('edit profile');
+
+                          Navigator.of(context)
+                              .push(UserSetting.route)
+                              .then((_) => setState(() => {}));
                         }),
                   ),
                 ),
