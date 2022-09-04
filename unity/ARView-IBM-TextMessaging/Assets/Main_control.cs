@@ -28,6 +28,9 @@ public class Main_control : MonoBehaviour
     [Header("Hint Text")]
     public GameObject gameobject_hint_text;
 
+    [Header("Hint Arrow")]
+    public GameObject gameobject_hint_arrow;
+
     [Header("Message Input")]
     public TMP_InputField messageInput;
     public Button confirmActionButton;
@@ -308,6 +311,7 @@ public class Main_control : MonoBehaviour
         {
             this.change_to_object_is_placed();
             this.gameobject_hint_text.SetActive(false);
+            this.gameobject_hint_arrow.SetActive(false);
         }
         
     }

@@ -149,6 +149,7 @@ class _ChateScreenState extends State<ChateScreen> {
 
   void placeObject() {
     unityWidgetController.postMessage('main_control', 'on_place_btn', '');
+    getFriendVoiceAndSet();
   }
 
   void onUnityMessage(message) {
@@ -159,7 +160,6 @@ class _ChateScreenState extends State<ChateScreen> {
   void onUnityCreated(controller) {
     this.unityWidgetController = controller;
     switchToMainAR();
-    getFriendVoiceAndSet();
   }
 
   void switchToMainAR() {
@@ -212,6 +212,7 @@ class _ChateScreenState extends State<ChateScreen> {
           String voiceFb = documentSnapshot['userJammoVoice'];
           setGlobalVoiceTTS(voiceFb);
 
+          print(voiceFb);
         }
       }
 
