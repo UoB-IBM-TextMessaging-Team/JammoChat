@@ -92,8 +92,6 @@ class _ChateScreenState extends State<ChateScreen> {
   void initState() {
     super.initState();
 
-    getFriendVoiceAndSet();
-
     unreadCountSubscription = StreamChannel.of(context)
         .channel
         .state!
@@ -161,6 +159,7 @@ class _ChateScreenState extends State<ChateScreen> {
   void onUnityCreated(controller) {
     this.unityWidgetController = controller;
     switchToMainAR();
+    getFriendVoiceAndSet();
   }
 
   void switchToMainAR() {
@@ -187,7 +186,18 @@ class _ChateScreenState extends State<ChateScreen> {
     );
   }
 
-  Future<void> getFriendVoiceAndSet() async {
+  void setGlobalVoiceTTS(String voiceOption){
+    unityWidgetController.postMessage(
+      'main_control',
+      'setGlobalVoiceTemp',
+      voiceOption,
+    );
+  }
+
+  final docRef = FirebaseFirestore.instance
+      .collection("users");
+
+  void getFriendVoiceAndSet() async {
     try {
       var members = StreamChannel.of(context)
           .channel.state!.members;
@@ -197,23 +207,13 @@ class _ChateScreenState extends State<ChateScreen> {
           User temp = m.props[0] as User;
           String friendemail = temp.extraData['email'] as String;
 
-          /*
-          final docRef = Firestore.collection("users").doc(temp['email']);
-          await FirebaseFirestore.instance
-              .collection("users")
-              .doc(useremail)
-              .get();
+          DocumentSnapshot documentSnapshot =
+          await docRef.doc(friendemail).get();
+          String voiceFb = documentSnapshot['userJammoVoice'];
+          setGlobalVoiceTTS(voiceFb);
 
-           */
         }
       }
-      // Firestore Update
-      /*
-      await FirebaseFirestore.instance
-          .collection("users")
-          .doc()
-          .update({"userJammoVoice": voiceOption});
-      */
 
     } catch (e) {
       // ignore: avoid_print

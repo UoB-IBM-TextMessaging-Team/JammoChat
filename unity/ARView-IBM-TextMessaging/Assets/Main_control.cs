@@ -341,6 +341,11 @@ public class Main_control : MonoBehaviour
         this.TextToSpeechService.setVoice(inputVoice, inputLanguage);
     }
 
+    public void setGlobalVoiceTemp(string inputVoice)
+    {
+        this.TextToSpeechService.setVoice(inputVoice, "en");
+    }
+
 }
 
 
