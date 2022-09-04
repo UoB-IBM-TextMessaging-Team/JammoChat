@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io' as io;
 
 import 'package:audio_session/audio_session.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' as FireAuth;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -63,6 +65,8 @@ class _ChateScreenState extends State<ChateScreen> {
   // Watson
   bool isWatsonLoading = false;
 
+  final useremail = FireAuth.FirebaseAuth.instance.currentUser?.email;
+
   @override
   void dispose() {
     unreadCountSubscription.cancel();
@@ -87,6 +91,8 @@ class _ChateScreenState extends State<ChateScreen> {
   @override
   void initState() {
     super.initState();
+
+    getFriendVoiceAndSet();
 
     unreadCountSubscription = StreamChannel.of(context)
         .channel
@@ -180,6 +186,41 @@ class _ChateScreenState extends State<ChateScreen> {
       '',
     );
   }
+
+  Future<void> getFriendVoiceAndSet() async {
+    try {
+      var members = StreamChannel.of(context)
+          .channel.state!.members;
+      String curUserId = context.currentUser!.id;
+      for(Member m in members){
+        if(m.userId != curUserId){
+          User temp = m.props[0] as User;
+          String friendemail = temp.extraData['email'] as String;
+
+          /*
+          final docRef = Firestore.collection("users").doc(temp['email']);
+          await FirebaseFirestore.instance
+              .collection("users")
+              .doc(useremail)
+              .get();
+
+           */
+        }
+      }
+      // Firestore Update
+      /*
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc()
+          .update({"userJammoVoice": voiceOption});
+      */
+
+    } catch (e) {
+      // ignore: avoid_print
+      print('error occured');
+    }
+  }
+
 
   ///////RECOREDER
   Future<void> openTheRecorder() async {

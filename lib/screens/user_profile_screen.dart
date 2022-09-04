@@ -75,6 +75,21 @@ class _UserProfileState extends State<UserProfile> {
 
   ///////UNITY
 
+  setVoice(String voiceOption) async {
+    try {
+      // Firestore Update
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(useremail)
+          .update({"userJammoVoice": voiceOption});
+
+
+    } catch (e) {
+      // ignore: avoid_print
+      print('error occured');
+    }
+  }
+
   void WipDialog(){
     showDialog(
         context: context,
@@ -95,6 +110,39 @@ class _UserProfileState extends State<UserProfile> {
         )
     );
   }
+
+  void changeVoiceDialog(){
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text('Change voice to...'),
+          content: Text('Still work in progress, a preview version'),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Voice A'),
+              onPressed: () {
+                setVoice('male');
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Voice B'),
+              onPressed: () {
+                setVoice('female');
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        )
+    );
+  }
+
 
   Future findProfilePic() async {
     try {
@@ -261,7 +309,8 @@ class _UserProfileState extends State<UserProfile> {
                     GestureDetector(
                       onTap: (() {
                         print('change voice');
-                        WipDialog();
+                        //WipDialog();
+                        changeVoiceDialog();
                       }),
                       child: Container(
                         height: 48,

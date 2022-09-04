@@ -382,7 +382,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ' ': 'Occupation for avoid getstream.io service query error'
         },
         "userName": _nameController.text,
-        "userEmail": _emailController.text
+        "userEmail": _emailController.text,
+        "userJammoVoice": "male",
+        "preferLanguage": "en",
       });
     } catch (e) {
       // ignore: avoid_print
