@@ -1,3 +1,5 @@
+### * The Server has shut down. If you would like to learn more, contact sameslam@outlook.com
+
 #  <img src="https://user-images.githubusercontent.com/13105267/184379189-378c004f-26e2-45a7-b5a8-0c3fe310e49c.jpg" width="60" height="60"> JammoChat - AR & AI Chatting Experience 
 
 A text messaging app with vivid AR & AI experience powered by *IBM Watson*.  
