@@ -7,7 +7,7 @@ Special thanks to [Mix and Jam](https://www.youtube.com/c/mixandjam) with wonder
 
 **This project repo merge from [a flutter project](https://github.com/UoB-IBM-TextMessaging-Team/ar_ai_textmessaging_main) and [a unity project](https://github.com/UoB-IBM-TextMessaging-Team/ar_ai_textmessaging_unity). If you would like to learn more, please take a quick glance on our team homepage.:grinning:**
 
-Also checkout our [website](https://uob-ibm-textmessaging-team.github.io/ar_ai_textmessaging_pages/).
+**Also checkout our [Website](https://uob-ibm-textmessaging-team.github.io/ar_ai_textmessaging_pages/).**
 
 Brief look             |  AR/AI chat interface
 :-------------------------:|:-------------------------:
